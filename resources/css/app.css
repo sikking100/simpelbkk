@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .btn:hover {
+        @apply bg-nav-hover
+    }
+
+    .btn {
+        @apply rounded bg-nav py-2 px-6 text-white
+    }
+}
