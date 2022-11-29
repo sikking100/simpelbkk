@@ -13,21 +13,28 @@ class AuthController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Auth/Login');
+        $siteKey = getEnv('NOCAPTCHA_SITEKEY');
+        return Inertia::render('Admin/Auth/Login', compact('siteKey'));
     }
 
     public function store(AuthRequest $request)
     {
-        $credentials = $request->getCredentials();
-        if (!Auth::validate($credentials)) :
-            return redirect()->to('login')->withErrors(trans('auth.failed'));
-        endif;
+        // $credentials = $request->getCredentials();
+        // if (!Auth::validate($credentials)) {
+        //     return redirect()->to('login')->withErrors(trans('auth.failed'));
+        // }
 
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+        // $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return $this->authenticated($request, $user);
+        // return $this->authenticated($request, $user);
+
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function authenticated(Request $request, $user)
@@ -43,6 +50,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         // Session::flush();
         // Auth::logout();
-        return redirect('login');
+        return redirect('/');
     }
 }

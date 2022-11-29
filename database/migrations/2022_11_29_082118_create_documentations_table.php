@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('documentations', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->enum('type', ['desa', 'kabupaten']);
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('group_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('progress', ['25%', '50%', '75%', '100%'])->unique();
+            $table->text('description');
+            $table->text('images');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('documentations');
     }
 };

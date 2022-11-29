@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\District;
+use App\Models\Village;
+use App\Models\Group;
 
 class User extends Authenticatable
 {
@@ -18,9 +21,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'username',
         'password',
+        'district_id',
+        'village_id',
     ];
 
     /**
@@ -33,8 +37,23 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function setPasswordAttribute($value)
+    public function district()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->belongsTo(District::class);
+    }
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
+    }
+
+    /**
+     * Get all of the group for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function group(): HasMany
+    {
+        return $this->hasMany(Group::class);
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\VillageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function ()
+    {
+        return Inertia::render('Admin/Dashboard');
+    })->name('dashboard');
+
+    Route::get('/profil-usaha', function () {
+    });
+
+    Route::resource('district', DistrictController::class);
+    Route::resource('village', VillageController::class);
 });
 
 require __DIR__ . '/auth.php';
