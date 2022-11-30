@@ -38,17 +38,23 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'appName' => 'testing',
-            'auth' => [
-                'user' => $request->user()
-            ],
+            // 'auth' => [
+            //     'user' => $request->user()
+            // ],
+            'auth.user' => function () use ($request) {
+                $user = $request->user();
+                $user['district_name'] = $user->district->name ?? '';
+                $user['village_name'] = $user->village->name ?? '';
+                return $user;
+            },
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
                 ]);
             },
             'flash' => [
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
+                'password' => fn () => $request->session()->get('password')
             ]
         ]);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Village;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -92,5 +93,41 @@ class DistrictController extends Controller
     public function destroy(District $district)
     {
         //
+    }
+
+    public function villages(District $district)
+    {
+        return response()->json([
+            'villages' => $district->villages
+        ]);
+    }
+
+    public function villageCreate(District $district)
+    {
+        return Inertia::render('Admin/Village/Create', compact('district'));
+    }
+
+    public function villageStore(District $district, Request $request)
+    {
+        $village = new Village();
+        $village->name = $request->name;
+        $district->villages()->save($village);
+        session()->flash('message', trans('message.create'));
+        return redirect()->route('district.show', $district->id);
+    }
+
+    public function villageEdit(District $district, Village $village)
+    {
+        return Inertia::render('Admin/Village/Edit', [
+            'district' => $district,
+            'village' => $village,
+        ]);
+    }
+
+    public function villageUpdate(District $district, Village $village, Request $request)
+    {
+        $village->update($request->all());
+        session()->flash('message', trans('message.update'));
+        return redirect()->route('district.show', $district->id);
     }
 }

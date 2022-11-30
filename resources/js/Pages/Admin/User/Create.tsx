@@ -3,22 +3,22 @@ import { PagesProps } from '@/Inteface/Global';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
 import React from 'react'
-import DistrictForm from './Form';
+import Form from './Form';
 
 interface Props extends PagesProps {
-    district: District
+    districts: Array<District>
 }
 
-export default function Create({ auth, errors, district }: Props) {
+export default function Create({ auth, errors, districts }: Props) {
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={'Buat Desa'}
+            header={'Buat User'}
         >
-            <Head title='Buat Desa' />
-            <DistrictForm
-                district={district}
+            <Head title='Buat User' />
+            <Form
+                districts={districts}
             />
         </Authenticated>
     )

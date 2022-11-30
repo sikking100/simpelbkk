@@ -2,15 +2,16 @@ import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import route from "ziggy-js";
 interface BackProps {
-    route: string
+    router: string
+    id?: number
 }
 
-export function BackButton(routes: BackProps) {
+export function BackButton({ router, id }: BackProps) {
     return (
         <div className='container pb-3'>
             <Link
                 className="text-kemenag"
-                href={route(`${routes.route}.index`)}>
+                href={id === null || id === undefined ? route(`${router}.index`) : route(`${router}.show`, id)}>
                 Kembali
             </Link>
         </div>

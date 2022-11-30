@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('village_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('village_id')->nullable()->unique()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

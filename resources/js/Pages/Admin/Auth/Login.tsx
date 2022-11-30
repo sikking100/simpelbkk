@@ -40,52 +40,50 @@ export default function Login({ siteKey }: Props) {
 
     return (
         <Guest>
-            <div className="w-full min-h-screen flex flex-col sm:justify-center items-center">
+            <div className="min-h-screen flex flex-col justify-center items-center mt-10">
                 <img src="../assets/logo.png" alt="" className={'h-40 mb-2'} />
                 <p className={'text-2xl'}>Login Dashboard</p>
                 <p className="text-xl">SIMPEL - BKK</p>
                 <p className="text-lg">Dinas Pemberdayaan Masyarakat dan Desa Daerah</p>
                 <p className="text-lg">Kabupaten Morowali Utara</p>
-                <div className={"my-16"}>
-                    <form onSubmit={onSubmit}>
-                        <Label
-                            value="Username"
-                        />
-                        <Input
-                            type={"text"}
-                            className={"w-full"}
-                            onChange={onChange}
-                            name={'username'}
-                            value={data.username}
-                        />
-                        <Label
-                            value="Password" />
-                        <Input
-                            name={'password'}
-                            value={data.password}
-                            type={"password"}
-                            className={"w-full"}
-                            onChange={onChange}
-                        />
-                        <ReCAPTCHA
-                            className={'my-6'}
-                            sitekey={siteKey}
+                <form onSubmit={onSubmit} className={"my-16 flex flex-col"}>
+                    <Label
+                        value="Username"
+                    />
+                    <Input
+                        type={"text"}
+                        className={"w-full"}
+                        onChange={onChange}
+                        name={'username'}
+                        value={data.username}
+                    />
+                    <Label
+                        value="Password" />
+                    <Input
+                        name={'password'}
+                        value={data.password}
+                        type={"password"}
+                        className={"w-full"}
+                        onChange={onChange}
+                    />
+                    <ReCAPTCHA
+                        className={'my-6'}
+                        sitekey={siteKey}
 
-                            onChange={(e) => {
-                                if (e !== null) {
-                                    setData('captcha', e)
-                                }
-                            }}
-                        >
-                        </ReCAPTCHA>
-                        <input
-                            type={"submit"}
-                            value={"Login"}
-                            className={"btn mx-auto"}
-                        />
-                    </form>
-                    {Object.keys(errors).length > 0 && Object.values(errors).map((e, i) => <ErrorText key={i} message={e} />)}
-                </div>
+                        onChange={(e) => {
+                            if (e !== null) {
+                                setData('captcha', e)
+                            }
+                        }}
+                    >
+                    </ReCAPTCHA>
+                    <input
+                        type={"submit"}
+                        value={"Login"}
+                        className={"btn self-center"}
+                    />
+                </form>
+                {Object.keys(errors).length > 0 && Object.values(errors).map((e, i) => <ErrorText key={i} message={e} />)}
             </div>
         </Guest>
     )

@@ -1,7 +1,7 @@
 import Alert from '@/Component/Alert'
+import { Category } from '@/Inteface/Category'
 import { District } from '@/Inteface/District'
 import { PagesProps } from '@/Inteface/Global'
-import { Village } from '@/Inteface/Village'
 import Authenticated from '@/Layouts/Authenticated'
 import { PageProps } from '@inertiajs/inertia'
 import { Head, InertiaLink } from '@inertiajs/inertia-react'
@@ -9,11 +9,10 @@ import React from 'react'
 import route from 'ziggy-js'
 
 interface Props extends PagesProps {
-    district: District
-    villages: Array<Village>
+    categories: Array<Category>
 }
 
-export default function Index({ auth, errors, villages, flash, district }: Props) {
+export default function Index({ auth, errors, categories, flash }: Props) {
     const [showAlert, setShowAlert] = React.useState(true);
 
     React.useEffect(() => {
@@ -32,16 +31,14 @@ export default function Index({ auth, errors, villages, flash, district }: Props
             clearInterval(interval)
         }
     }, [])
-    console.log(typeof villages);
-
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={`Kecamatan ${district.name}`}
+            header={'Kategori'}
         >
             <Head
-                title='Desa'
+                title='Kategori'
             />
             <Alert
                 showAlert={showAlert}
@@ -49,15 +46,15 @@ export default function Index({ auth, errors, villages, flash, district }: Props
                 message={flash?.message ?? ''}
             />
             <InertiaLink
-                href={route('village.create', district.id)}
+                href={route('category.create')}
                 className='btn'
             >
-                Tambah Desa
+                Tambah
             </InertiaLink>
             <div
                 className='mt-6'
             >
-                {villages.length === 0 ? (
+                {categories.length === 0 ? (
                     <div>
                         <p>Data Kosong</p>
                     </div>
@@ -72,20 +69,15 @@ export default function Index({ auth, errors, villages, flash, district }: Props
                                 </tr>
                             </thead>
                             <tbody>
-                                {villages.map((e, i) => (
+                                {categories.map((e, i) => (
                                     <tr key={i}>
                                         <td>{i + 1}</td>
                                         <td>{e.name}</td>
                                         <td><div className='flex gap-2'>
                                             <InertiaLink
-                                                href={route('district.edit', e.id)}
+                                                href={route('category.edit', e.id)}
                                                 className='btn bg-blue-500'>
                                                 Ubah
-                                            </InertiaLink>
-                                            <InertiaLink
-                                                href={route('district.show', e.id)}
-                                                className='btn bg-yellow-500'>
-                                                Desa
                                             </InertiaLink>
                                         </div></td>
                                     </tr>

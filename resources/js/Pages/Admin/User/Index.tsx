@@ -1,25 +1,27 @@
 import Alert from '@/Component/Alert'
-import { District } from '@/Inteface/District'
 import { PagesProps } from '@/Inteface/Global'
-import { Village } from '@/Inteface/Village'
+import { User } from '@/Inteface/User'
 import Authenticated from '@/Layouts/Authenticated'
-import { PageProps } from '@inertiajs/inertia'
 import { Head, InertiaLink } from '@inertiajs/inertia-react'
 import React from 'react'
 import route from 'ziggy-js'
 
 interface Props extends PagesProps {
-    district: District
-    villages: Array<Village>
+    users: Array<User>
 }
 
-export default function Index({ auth, errors, villages, flash, district }: Props) {
+export default function Index({ auth, errors, users, flash }: Props) {
     const [showAlert, setShowAlert] = React.useState(true);
+    const [showPass, setShowPass] = React.useState(false);
 
     React.useEffect(() => {
         console.log('initialize interval')
         if (showAlert == false) {
             setShowAlert(true)
+        }
+
+        if (showPass == false) {
+            setShowPass(true)
         }
         const interval = setInterval(() => {
             if (showAlert == true) {
@@ -32,34 +34,37 @@ export default function Index({ auth, errors, villages, flash, district }: Props
             clearInterval(interval)
         }
     }, [])
-    console.log(typeof villages);
-
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={`Kecamatan ${district.name}`}
+            header={'User'}
         >
             <Head
-                title='Desa'
+                title='User'
             />
             <Alert
                 showAlert={showAlert}
                 setShowAlert={setShowAlert}
                 message={flash?.message ?? ''}
             />
+            <Alert
+                showAlert={showPass}
+                setShowAlert={setShowPass}
+                message={flash?.password ?? ''}
+            />
             <InertiaLink
-                href={route('village.create', district.id)}
+                href={route('user.create')}
                 className='btn'
             >
-                Tambah Desa
+                Tambah User
             </InertiaLink>
             <div
                 className='mt-6'
             >
-                {villages.length === 0 ? (
+                {users.length === 0 ? (
                     <div>
-                        <p>Data Kosong</p>
+                        <p>User Kosong</p>
                     </div>
                 ) : (
                     <div className='w-full'>
@@ -67,25 +72,24 @@ export default function Index({ auth, errors, villages, flash, district }: Props
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Username</th>
                                     <th>Nama</th>
+                                    <th>Kecamatan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {villages.map((e, i) => (
+                                {users.map((e, i) => (
                                     <tr key={i}>
                                         <td>{i + 1}</td>
-                                        <td>{e.name}</td>
+                                        <td>{e.username}</td>
+                                        <td>{e.village_name ?? '-'}</td>
+                                        <td>{e.district_name ?? '-'}</td>
                                         <td><div className='flex gap-2'>
                                             <InertiaLink
-                                                href={route('district.edit', e.id)}
+                                                href={route('user.edit', e.id)}
                                                 className='btn bg-blue-500'>
                                                 Ubah
-                                            </InertiaLink>
-                                            <InertiaLink
-                                                href={route('district.show', e.id)}
-                                                className='btn bg-yellow-500'>
-                                                Desa
                                             </InertiaLink>
                                         </div></td>
                                     </tr>

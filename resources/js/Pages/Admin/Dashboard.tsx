@@ -25,16 +25,16 @@ export default function Dashboard({ auth, errors }: PagesProps) {
                 <div
                     className="card-dashboard"
                 >
-                    Pendapatan Kelompok Penerima Bkk
+                    Pendapatan Kelompok Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                 </div>
                 <div className="card-dashboard">
-                    Total Penerima Bkk
+                    Total Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                 </div>
                 <div className="card-dashboard">
-                    Total Dana Bkk
+                    Total Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                 </div>
                 <div className="card-dashboard">
-                    Realisasi Dana Bkk
+                    Realisasi Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                 </div>
             </div>
         </Authenticated>

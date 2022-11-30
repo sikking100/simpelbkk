@@ -23,4 +23,12 @@
     td {
         @apply border border-slate-700 p-5
     }
+
+    .form-input {
+        @apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3
+    }
+
+    .form-label {
+        @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
+    }
 }

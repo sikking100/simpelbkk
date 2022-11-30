@@ -4,13 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\User;
-use App\Model\Category;
-use App\Model\TypeOfAction;
-use App\Model\Member;
-use App\Model\Documentation;
-use App\Model\Income;
-use App\Model\Realitation;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
@@ -56,7 +51,7 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function type(): BelongsTo
+    public function typeOfAction(): BelongsTo
     {
         return $this->belongsTo(TypeOfAction::class);
     }

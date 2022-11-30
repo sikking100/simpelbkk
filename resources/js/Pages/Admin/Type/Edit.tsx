@@ -1,25 +1,24 @@
-import { District } from '@/Inteface/District';
 import { PagesProps } from '@/Inteface/Global';
+import { TypeOfAction } from '@/Inteface/TypeOfAction';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
 import React from 'react'
-import DistrictForm from './Form';
+import Form from './Form';
 
 interface Props extends PagesProps {
-    district: District
+    typeOfAction: TypeOfAction
 }
 
-export default function Create({ auth, errors, district }: Props) {
+export default function Create({ auth, errors, typeOfAction }: Props) {
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={'Buat Desa'}
+            header={'Ubah Tipe Kegiatan'}
         >
-            <Head title='Buat Desa' />
-            <DistrictForm
-                district={district}
-            />
+            <Head title='Ubah Tipe Kegiatan' />
+            <Form
+                typeOfAction={typeOfAction} />
         </Authenticated>
     )
 }

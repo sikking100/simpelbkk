@@ -1,33 +1,32 @@
 import { BackButton } from "@/Component/Button";
 import { ErrorText } from "@/Component/Error";
-import { District } from "@/Inteface/District";
-import { PagesProps } from "@/Inteface/Global";
+import { TypeOfAction } from "@/Inteface/TypeOfAction";
 import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import route from "ziggy-js";
 
 interface Props {
-    district?: District | undefined
+    typeOfAction?: TypeOfAction | undefined
 }
 
 interface FormProps {
     name: string
 }
 
-export default function DistrictForm({ district }: Props) {
+export default function Form({ typeOfAction }: Props) {
     const { data, setData, post, put, errors } = useForm<FormProps>({
-        name: district?.name ?? ''
+        name: typeOfAction?.name ?? ''
     })
 
-    const title = district === undefined ? 'Simpan' : 'Ubah'
+    const title = typeOfAction === undefined ? 'Simpan' : 'Ubah'
     return (
         <form className="w-full p-6" onSubmit={(e) => {
             e.preventDefault()
-            if (district === undefined) {
-                post(route('district.store'))
+            if (typeOfAction === undefined) {
+                post(route('typeOfAction.store'))
                 return
             }
-            put(route('district.update', district.id))
+            put(route('typeOfAction.update', typeOfAction.id))
         }}>
             <BackButton
                 router={'district'}

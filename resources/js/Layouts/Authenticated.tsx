@@ -13,10 +13,15 @@ interface Props extends PagesProps {
 export default function Authenticated({ auth, errors, header, children }: React.PropsWithChildren<Props>) {
 
     return (
-        <div>
+        <div >
             <div className="bg-white shadow w-full text-primary-dark py-6 px-4 sm:px-6 lg:px-8 inline-flex">
-                <img src={'../../assets/logo.png'} className={'h-2/4 max-h-8 pr-6'} />
-                <p className="self-center">{auth?.user.name ?? 'DINAS PEMBERDAYAAN MASYARAKAT DAN DESA DAERAH'}</p>
+                <img src={'../../assets/logo.png'} className={'h-2/4 max-h-8 pr-6 self-center'} />
+                {auth?.user.village_name !== null ? (
+                    <div className="justify-center">
+                        <p>{`Kecamatan ${auth?.user.district_name}`}</p>
+                        <p>{`Desa ${auth?.user.village_name}`}</p>
+                    </div>
+                ) : <p className="self-center">'DINAS PEMBERDAYAAN MASYARAKAT DAN DESA DAERAH'</p>}
                 <InertiaLink
                     method='post'
                     as={'button'}
@@ -42,8 +47,8 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                 {auth?.user.type === 'desa' ? <>
                                     <li className="rounded-lg mb-4">
                                         <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
+                                            href={route('group.index')}
+                                            active={route().current('group.*')}
                                         >
                                             Kelompok
                                         </NavLink>
@@ -73,6 +78,14 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                             Dokumentasi
                                         </NavLink>
                                     </li>
+                                    <li className="rounded-lg mb-4">
+                                        <NavLink
+                                            href={route('dashboard')}
+                                            active={route().current('dashboard')}
+                                        >
+                                            Reset Sandi
+                                        </NavLink>
+                                    </li>
                                 </> :
 
                                     <>
@@ -82,6 +95,23 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                                 active={route().current('district.*')}
                                             >
                                                 Kecamatan
+                                            </NavLink>
+                                        </li>
+
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('category.index')}
+                                                active={route().current('category.*')}
+                                            >
+                                                Kategori
+                                            </NavLink>
+                                        </li>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('typeOfAction.index')}
+                                                active={route().current('typeOfAction.*')}
+                                            >
+                                                Tipe Kegiatan
                                             </NavLink>
                                         </li>
                                         <li className="rounded-lg mb-4">
@@ -123,17 +153,19 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                             >
                                                 Dokumen
                                             </NavLink>
-                                        </li></>
+                                        </li>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('user.index')}
+                                                active={route().current('user.*')}
+                                            >
+                                                User
+                                            </NavLink>
+                                        </li>
+                                    </>
                                 }
 
-                                <li className="rounded-lg mb-4">
-                                    <NavLink
-                                        href={route('dashboard')}
-                                        active={route().current('dashboard')}
-                                    >
-                                        Reset Sandi
-                                    </NavLink>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

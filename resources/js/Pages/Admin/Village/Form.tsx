@@ -8,19 +8,17 @@ import React from "react";
 import route from "ziggy-js";
 
 interface Props {
-    id: number
+    district: District
     village?: Village | undefined
 }
 
 interface FormProps {
     name: string
-    district_id: number
 }
 
-export default function VillageForm({ village, id }: Props) {
+export default function VillageForm({ village, district }: Props) {
     const { data, setData, post, put, errors } = useForm<FormProps>({
         name: village?.name ?? '',
-        district_id: id ?? 0
     })
 
     const title = village === undefined ? 'Simpan' : 'Ubah'
@@ -28,13 +26,14 @@ export default function VillageForm({ village, id }: Props) {
         <form className="w-full p-6" onSubmit={(e) => {
             e.preventDefault()
             if (village === undefined) {
-                post(route('village.store'))
+                post(route('village.store', district.id))
                 return
             }
-            put(route('village.update', village.id))
+            put(route('village.update', [district.id, village.id]))
         }}>
             <BackButton
-                route={'district'}
+                router={'district'}
+                id={district.id}
             />
             <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full px-3">

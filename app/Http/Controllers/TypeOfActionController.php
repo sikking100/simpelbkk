@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TypeOfAction;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TypeOfActionController extends Controller
 {
@@ -14,7 +15,8 @@ class TypeOfActionController extends Controller
      */
     public function index()
     {
-        //
+        $types = TypeOfAction::all();
+        return Inertia::render('Admin/Type/Index', compact('types'));
     }
 
     /**
@@ -24,7 +26,7 @@ class TypeOfActionController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Type/Create');
     }
 
     /**
@@ -35,7 +37,10 @@ class TypeOfActionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $type = TypeOfAction::make($request->all());
+        $type->save();
+        session()->flash('message', trans('message.create'));
+        return redirect()->route('typeOfAction.index');
     }
 
     /**
@@ -57,7 +62,7 @@ class TypeOfActionController extends Controller
      */
     public function edit(TypeOfAction $typeOfAction)
     {
-        //
+        return Inertia::render('Admin/Type/Edit', compact('typeOfAction'));
     }
 
     /**
@@ -69,7 +74,9 @@ class TypeOfActionController extends Controller
      */
     public function update(Request $request, TypeOfAction $typeOfAction)
     {
-        //
+        $typeOfAction->update($request->all());
+        session()->flash('message', trans('message.update'));
+        return redirect()->route('typeOfAction.index');
     }
 
     /**

@@ -18,6 +18,7 @@ export interface PagesProps {
 
     flash?: {
         message: string
+        password?: string
     }
 
 }
