@@ -51,7 +51,11 @@ class DistrictController extends Controller
      */
     public function show(District $district)
     {
-        //
+        $villages = $district->villages;
+        return Inertia::render('Admin/Village/Index', [
+            "district" => $district,
+            "villages" => $villages
+        ]);
     }
 
     /**

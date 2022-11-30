@@ -21,8 +21,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function ()
-    {
+    Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
     })->name('dashboard');
 
@@ -30,7 +29,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::resource('district', DistrictController::class);
-    Route::resource('village', VillageController::class);
+    Route::get('/village/{village}/create', [VillageController::class, 'create'])->name('village.create');
+    Route::post('/village', [VillageController::class, 'store'])->name('village.store');
 });
 
 require __DIR__ . '/auth.php';

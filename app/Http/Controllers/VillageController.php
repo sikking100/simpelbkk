@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
 use App\Models\Village;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class VillageController extends Controller
 {
@@ -22,9 +24,9 @@ class VillageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return Inertia::render('Admin/Village/Create', compact('id'));
     }
 
     /**
@@ -35,7 +37,12 @@ class VillageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $district = District::firstWhere('id', $request->district_id);
+        $village = new Village();
+        $village->name = $request->name;
+        $district->villages()->save($village);
+        session()->flash('message', 'Berhasil menambah data');
+        return redirect()->route('district.show', $request->district_id);
     }
 
     /**

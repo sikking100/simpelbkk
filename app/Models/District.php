@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Village;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class District extends Model
 {
@@ -20,9 +21,9 @@ class District extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->HasMany(User::class);
     }
 
     /**
@@ -30,7 +31,7 @@ class District extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function village(): HasMany
+    public function villages(): HasMany
     {
         return $this->hasMany(Village::class);
     }
