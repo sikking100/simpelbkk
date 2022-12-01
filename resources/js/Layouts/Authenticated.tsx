@@ -56,24 +56,24 @@ export default function Authenticated({ auth, errors, header, children }: React.
 
                                     <li className="rounded-lg mb-4">
                                         <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
+                                            href={route('realization.index')}
+                                            active={route().current('realization.*')}
                                         >
                                             Laporan Realisasi
                                         </NavLink>
                                     </li>
                                     <li className="rounded-lg mb-4">
                                         <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
+                                            href={route('income.index')}
+                                            active={route().current('income.*')}
                                         >
                                             Laporan Pendapatan
                                         </NavLink>
                                     </li>
                                     <li className="rounded-lg mb-4">
                                         <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
+                                            href={route('documentation.index')}
+                                            active={route().current('documentation.*')}
                                         >
                                             Dokumentasi
                                         </NavLink>
@@ -89,6 +89,22 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                 </> :
 
                                     <>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('banner.index')}
+                                                active={route().current('banner.*')}
+                                            >
+                                                Banner
+                                            </NavLink>
+                                        </li>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('announcement.index')}
+                                                active={route().current('announcement.*')}
+                                            >
+                                                Pengumuman
+                                            </NavLink>
+                                        </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
                                                 href={route('district.index')}

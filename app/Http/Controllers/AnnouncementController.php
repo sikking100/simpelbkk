@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Income;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class IncomeController extends Controller
+class AnnouncementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Index', compact('groups'));
+        $announcements = Announcement::all()->sortByDesc('date')->values()->all();
+        return Inertia::render('Admin/Announcement/Index', compact('announcements'));
     }
 
     /**
@@ -27,8 +26,7 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Create', compact('groups'));
+        return Inertia::render('Admin/Announcement/Create');
     }
 
     /**
@@ -39,63 +37,58 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        $income = Income::make($request->all());
-        $income->save();
+        $announcement = Announcement::make($request->all());
+        $announcement->save();
         session()->flash('message', trans('message.create'));
-        return redirect()->route('income.index');
+        return redirect()->route('announcement.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
-    public function show(Income $income)
+    public function show(Announcement $announcement)
     {
-        $income['group_name'] = $income->group->name;
-        return Inertia::render('Admin/Income/Create', compact('income'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
-    public function edit(Income $income)
+    public function edit(Announcement $announcement)
     {
-        $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Edit', [
-            'groups' => $groups,
-            'income' => $income
-        ]);
+        return Inertia::render('Admin/Announcement/Edit', compact('announcement'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Income $income)
+    public function update(Request $request, Announcement $announcement)
     {
-        $income->update($request->all());
+        $announcement->update($request->all());
         session()->flash('message', trans('message.update'));
-        return redirect()->route('income.index');
+        return redirect()->route('announcement.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Income $income)
+    public function destroy(Announcement $announcement)
     {
-        $income->delete();
+        $announcement->delete();
         session()->flash('message', trans('message.delete'));
-        return redirect()->route('income.index');
+        return redirect()->route('announcement.index');
     }
 }

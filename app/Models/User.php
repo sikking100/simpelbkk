@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\District;
 use App\Models\Village;
 use App\Models\Group;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
@@ -38,12 +39,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(District::class);
     }
 
-    public function village()
+    public function village(): BelongsTo
     {
         return $this->belongsTo(Village::class);
     }
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function group(): HasMany
     {
         return $this->hasMany(Group::class);
+    }
+
+    public function incomes(): HasMany
+    {
+        return $this->hasMany(Income::class);
     }
 }

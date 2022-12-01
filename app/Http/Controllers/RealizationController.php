@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Income;
+use App\Models\Realization;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class IncomeController extends Controller
+class RealizationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class IncomeController extends Controller
     public function index()
     {
         $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Index', compact('groups'));
+        return Inertia::render('Admin/Realization/Index', compact('groups'));
     }
 
     /**
@@ -28,7 +28,7 @@ class IncomeController extends Controller
     public function create()
     {
         $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Create', compact('groups'));
+        return Inertia::render('Admin/Realization/Create', compact('groups'));
     }
 
     /**
@@ -39,36 +39,36 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        $income = Income::make($request->all());
-        $income->save();
+        $realization = Realization::make($request->all());
+        $realization->save();
         session()->flash('message', trans('message.create'));
-        return redirect()->route('income.index');
+        return redirect()->route('realization.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Realization  $realization
      * @return \Illuminate\Http\Response
      */
-    public function show(Income $income)
+    public function show(Realization $realization)
     {
-        $income['group_name'] = $income->group->name;
-        return Inertia::render('Admin/Income/Create', compact('income'));
+        $realization['group_name'] = $realization->group->name;
+        return Inertia::render('Admin/Realization/Create', compact('realization'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Realization  $realization
      * @return \Illuminate\Http\Response
      */
-    public function edit(Income $income)
+    public function edit(Realization $realization)
     {
         $groups = Group::where('user_id', auth()->user()->id)->get();
-        return Inertia::render('Admin/Income/Edit', [
-            'groups' => $groups,
-            'income' => $income
+        return Inertia::render('Admin/Realization/Edit', [
+            'realization' => $realization,
+            'groups' => $groups
         ]);
     }
 
@@ -76,26 +76,26 @@ class IncomeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Realization  $realization
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Income $income)
+    public function update(Request $request, Realization $realization)
     {
-        $income->update($request->all());
+        $realization->update($request->all());
         session()->flash('message', trans('message.update'));
-        return redirect()->route('income.index');
+        return redirect()->route('realization.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Income  $income
+     * @param  \App\Models\Realization  $realization
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Income $income)
+    public function destroy(Realization $realization)
     {
-        $income->delete();
+        $realization->delete();
         session()->flash('message', trans('message.delete'));
-        return redirect()->route('income.index');
+        return redirect()->route('realization.index');
     }
 }

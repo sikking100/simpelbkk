@@ -58,8 +58,8 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                     </div>
                 ) : (
                     <div className='w-full grid grid-cols-3'>
-                        {groups.map((e, i) => (<div key={i} className='max-w-fit border-2 border-black'>
-                            <img src={`../../../storage/groups/${e.image}`} alt="" />
+                        {groups.map((e, i) => (<div key={i} className='max-w-fit border-2 border-black rounded-lg'>
+                            <img src={`../../../storage/groups/${e.image}`} alt="" className='w-full rounded-t-lg' />
                             <hr className="min-w-full border-b-1 border-black" />
                             <div className='flex flex-col p-6 gap-2'>
                                 <p>{e.name}</p>

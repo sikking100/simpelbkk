@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('phone', 100);
             $table->string('proposal', 100);
             $table->string('email')->nullable();
+            $table->date('date');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

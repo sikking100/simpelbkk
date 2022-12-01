@@ -11,6 +11,7 @@ use Inertia\Inertia;
 
 class GroupController extends Controller
 {
+
     private $upload;
 
     public function __construct()
@@ -120,5 +121,26 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         //
+    }
+
+    public function realizations(Group $group)
+    {
+        return response()->json([
+            'realizations' => $group->realization
+        ]);
+    }
+
+    public function incomes(Group $group)
+    {
+        return response()->json([
+            'incomes' => $group->income
+        ]);
+    }
+
+    public function documentations(Group $group)
+    {
+        return response()->json([
+            'documentations' => $group->documentation
+        ]);
     }
 }

@@ -87,12 +87,12 @@ class Group extends Model
     }
 
     /**
-     * Get all of the realitation for the Group
+     * Get all of the Realization for the Group
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function realitation(): HasMany
+    public function realization(): HasMany
     {
-        return $this->hasMany(Realitation::class);
+        return $this->hasMany(Realization::class);
     }
 }
