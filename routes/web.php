@@ -65,8 +65,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/group/{group}/realizations', 'realizations');
         Route::get('/group/{group}/incomes', 'incomes');
         Route::get('/group/{group}/documentations', 'documentations');
+        Route::get('/kabupaten', 'kabupaten')->name('kabupaten');
+        Route::get('/kabupaten/{kecamatan}/desa', 'desa');
+        Route::get('/kabupaten/{desa}/data', 'kabupatenData');
     });
-    Route::get('/dashboard/{year}/desa', [DashboardController::class, 'desa']);
+    Route::get('/dashboard/{year}/data', [DashboardController::class, 'data']);
 });
 
 require __DIR__ . '/auth.php';

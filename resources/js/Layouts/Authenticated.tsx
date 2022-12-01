@@ -132,8 +132,8 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
-                                                href={route('dashboard')}
-                                                active={route().current('dashboard')}
+                                                href={route('kabupaten')}
+                                                active={route().current('kabupaten')}
                                             >
                                                 Profil Usaha
                                             </NavLink>

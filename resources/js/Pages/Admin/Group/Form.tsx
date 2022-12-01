@@ -7,6 +7,9 @@ import { TypeOfAction } from "@/Inteface/TypeOfAction";
 import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import route from "ziggy-js";
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import { dateToMysql, dateToShow } from "@/Function/function";
 
 interface Props {
     categories: Array<Category>
@@ -24,6 +27,7 @@ interface FormProps {
     description: string
     npwp: string
     phone: string
+    date: string
     email: string
     proposal: File | null
 
@@ -42,6 +46,7 @@ export default function Form({ group, categories, types }: Props) {
         description: group?.description ?? '',
         npwp: group?.npwp ?? '',
         phone: group?.phone ?? '',
+        date: group?.date ?? dateToMysql(Date.prototype),
         email: group?.email ?? '',
         proposal: null,
     })
@@ -228,6 +233,21 @@ export default function Form({ group, categories, types }: Props) {
                         }}
                     />
                     <ErrorText message={errors.proposal} />
+                </div>
+                <div className="w-full px-3">
+                    <label className={'form-label'}>
+                        Tanggal
+                    </label>
+                    <DatePicker
+                        value={dateToShow(Date.parse(data.date))}
+                        className={'form-input'}
+                        onChange={(e) => {
+                            if (e !== null) {
+                                setData('date', dateToMysql(e))
+                            }
+                        }}
+                    />
+                    <ErrorText message={errors.date} />
                 </div>
                 <div className="w-full px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

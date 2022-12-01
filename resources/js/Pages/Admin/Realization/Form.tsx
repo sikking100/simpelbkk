@@ -63,7 +63,7 @@ export default function Form({ groups, realization }: Props) {
                         name={'group_id'}
                         onChange={(e) => setData('group_id', Number.parseInt(e.target.value))}
                     >
-                        <option value={0}>-- Pilih Kategori --</option>
+                        <option value={0}>-- Pilih Kelompok --</option>
                         {groups.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
                     </select>
                     <ErrorText message={errors.date} />

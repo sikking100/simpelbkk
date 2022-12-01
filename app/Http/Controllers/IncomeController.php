@@ -40,6 +40,7 @@ class IncomeController extends Controller
     public function store(Request $request)
     {
         $income = Income::make($request->all());
+        $income['user_id'] = auth()->user()->id;
         $income->save();
         session()->flash('message', trans('message.create'));
         return redirect()->route('income.index');
@@ -81,6 +82,7 @@ class IncomeController extends Controller
      */
     public function update(Request $request, Income $income)
     {
+        $income['user_id'] = auth()->user()->id;
         $income->update($request->all());
         session()->flash('message', trans('message.update'));
         return redirect()->route('income.index');

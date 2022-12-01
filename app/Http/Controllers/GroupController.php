@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\District;
 use App\Models\Group;
 use App\Models\TypeOfAction;
+use App\Models\User;
+use App\Models\Village;
 use App\Support\MyUploadFile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -142,5 +145,23 @@ class GroupController extends Controller
         return response()->json([
             'documentations' => $group->documentation
         ]);
+    }
+
+    public function kabupaten()
+    {
+        $districts = District::all();
+        return Inertia::render('Admin/Group/Kabupaten', compact('districts'));
+    }
+
+    public function desa($kecamatan)
+    {
+        $villages = Village::where('district_id', $kecamatan)->get();
+        return response()->json($villages);
+    }
+
+    public function kabupatenData($desa)
+    {
+        $user = User::firstWhere('village_id', $desa);
+        return response()->json($user->group);
     }
 }

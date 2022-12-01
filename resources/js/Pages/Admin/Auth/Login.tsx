@@ -6,9 +6,11 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import React from "react"
 import route from 'ziggy-js'
 import { ErrorText } from "@/Component/Error"
+import { Banner } from "@/Inteface/Banner"
 
 interface Props {
     siteKey: string
+    banner: Banner
 }
 
 interface FormProps {
@@ -17,7 +19,7 @@ interface FormProps {
     captcha: string
 }
 
-export default function Login({ siteKey }: Props) {
+export default function Login({ siteKey, banner }: Props) {
     const { data, setData, post, processing, errors } = useForm<FormProps>({
         username: '',
         password: '',
@@ -39,7 +41,8 @@ export default function Login({ siteKey }: Props) {
     }
 
     return (
-        <Guest>
+        <Guest
+            banner={banner}>
             <div className="min-h-screen flex flex-col justify-center items-center mt-10">
                 <img src="../assets/logo.png" alt="" className={'h-40 mb-2'} />
                 <p className={'text-2xl'}>Login Dashboard</p>

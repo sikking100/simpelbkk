@@ -52,6 +52,8 @@ class DocumentationController extends Controller
         if ($request->image != null) {
             $this->upload->uploadImage($request, 'documentations', $documentation);
         }
+        $documentation['user_id'] = auth()->user()->id;
+
         $documentation->save();
         session()->flash('message', trans('message.create'));
         return redirect()->route('documentation.index');
@@ -97,6 +99,7 @@ class DocumentationController extends Controller
             $this->upload->deleteImage('documentations', $documentation);
             $this->upload->uploadImage($request, 'documentations', $documentation);
         }
+        $documentation['user_id'] = auth()->user()->id;
         $documentation->update($request->all());
         session()->flash('message', trans('message.update'));
         return redirect()->route('documentation.index');

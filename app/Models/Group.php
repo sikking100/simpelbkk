@@ -23,7 +23,8 @@ class Group extends Model
         'phone',
         'proposal',
         'email',
-        'user_id'
+        'user_id',
+        'date',
     ];
 
     /**

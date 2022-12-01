@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
+use App\Models\Banner;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +14,12 @@ class AuthController extends Controller
 
     public function create()
     {
+        $banner = Banner::all()->first();
         $siteKey = getEnv('NOCAPTCHA_SITEKEY');
-        return Inertia::render('Admin/Auth/Login', compact('siteKey'));
+        return Inertia::render('Admin/Auth/Login', [
+            'siteKey' => $siteKey,
+            'banner' => $banner,
+        ]);
     }
 
     public function store(AuthRequest $request)

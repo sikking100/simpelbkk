@@ -40,6 +40,7 @@ class RealizationController extends Controller
     public function store(Request $request)
     {
         $realization = Realization::make($request->all());
+        $realization['user_id'] = auth()->user()->id;
         $realization->save();
         session()->flash('message', trans('message.create'));
         return redirect()->route('realization.index');
@@ -81,6 +82,7 @@ class RealizationController extends Controller
      */
     public function update(Request $request, Realization $realization)
     {
+        $realization['user_id'] = auth()->user()->id;
         $realization->update($request->all());
         session()->flash('message', trans('message.update'));
         return redirect()->route('realization.index');

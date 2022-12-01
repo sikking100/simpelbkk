@@ -19,7 +19,7 @@ export default function Dashboard({ auth, errors }: PagesProps) {
 
 
     function getData() {
-        axios.get(`/dashboard/${year}/desa`).then((e) => {
+        axios.get(`/dashboard/${year}/data`).then((e) => {
             console.log(e.data);
 
             setPendapatan(e.data.totalPendapatan)

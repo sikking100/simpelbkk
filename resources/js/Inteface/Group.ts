@@ -12,6 +12,8 @@ export interface Group {
     npwp: string
     phone: string
     proposal: string
+    date: string
     email: string
-    user_id: string
+    user_id: number
+    village_id: number
 }
