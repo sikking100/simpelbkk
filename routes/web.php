@@ -11,6 +11,7 @@ use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RealizationController;
 use App\Http\Controllers\TypeOfActionController;
 use App\Http\Controllers\UserController;
@@ -68,6 +69,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/kabupaten', 'kabupaten')->name('kabupaten');
         Route::get('/kabupaten/{kecamatan}/desa', 'desa');
         Route::get('/kabupaten/{desa}/data', 'kabupatenData');
+        Route::get('/kabupaten-list', 'list')->name('kabupaten.list');
+    });
+    Route::controller(MemberController::class)->group(function () {
+        Route::get('/group/{group}/index', 'index')->name('member.index');
+        Route::get('/group/{group}/create', 'create')->name('member.create');
+        Route::post('/member', 'store')->name('member.store');
+        Route::get('/member/{member}/show', 'show')->name('member.show');
+        Route::get('/member/{member}/edit', 'edit')->name('member.edit');
+        Route::put('/member/{member}/update', 'update')->name('member.update');
+        Route::delete('/member/{member}/destroy', 'destroy')->name('member.destroy');
+        Route::get('/member-list', 'list')->name('member.list');
     });
     Route::get('/dashboard/{year}/data', [DashboardController::class, 'data']);
 });

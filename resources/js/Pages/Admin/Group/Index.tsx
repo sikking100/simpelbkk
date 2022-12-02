@@ -75,7 +75,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                                     >Detail
                                     </InertiaLink>
                                     <InertiaLink
-                                        href={route('group.show', e.id)}
+                                        href={route('member.index', e.id)}
                                         className='btn bg-green-600'
                                     >Anggota
                                     </InertiaLink>

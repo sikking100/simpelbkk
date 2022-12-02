@@ -16,12 +16,12 @@ export default function Authenticated({ auth, errors, header, children }: React.
         <div >
             <div className="bg-white shadow w-full text-primary-dark py-6 px-4 sm:px-6 lg:px-8 inline-flex">
                 <img src={'../../assets/logo.png'} className={'h-2/4 max-h-8 pr-6 self-center'} />
-                {auth?.user.village_name !== null ? (
+                {auth?.user.type === 'desa' ? (
                     <div className="justify-center">
                         <p>{`Kecamatan ${auth?.user.district_name}`}</p>
                         <p>{`Desa ${auth?.user.village_name}`}</p>
                     </div>
-                ) : <p className="self-center">'DINAS PEMBERDAYAAN MASYARAKAT DAN DESA DAERAH'</p>}
+                ) : <p className="self-center">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA DAERAH</p>}
                 <InertiaLink
                     method='post'
                     as={'button'}
@@ -140,16 +140,16 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
-                                                href={route('dashboard')}
-                                                active={route().current('dashboard')}
+                                                href={route('kabupaten.list')}
+                                                active={route().current('kabupaten.list')}
                                             >
                                                 Rekap Kelompok
                                             </NavLink>
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
-                                                href={route('dashboard')}
-                                                active={route().current('dashboard')}
+                                                href={route('member.list')}
+                                                active={route().current('member.list')}
                                             >
                                                 Rekap Anggota
                                             </NavLink>

@@ -7,7 +7,7 @@ import ReactDatePicker from "react-datepicker";
 import route from "ziggy-js";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import { dateToShow } from "@/Function/function";
+import { dateToMysql, dateToShow } from "@/Function/function";
 
 
 interface Props {
@@ -21,7 +21,7 @@ interface FormProps {
 
 export default function Form({ announcement }: Props) {
     const { data, setData, post, put, errors } = useForm<FormProps>({
-        date: announcement?.date ?? Date(),
+        date: announcement?.date ?? dateToMysql(Date.prototype),
         description: announcement?.description ?? ''
     })
 

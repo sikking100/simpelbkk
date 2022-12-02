@@ -1,5 +1,6 @@
 
 import { Banner } from '@/Inteface/Banner'
+import { defImage } from '@/Inteface/DefImage'
 import { InertiaLink, Link } from '@inertiajs/inertia-react'
 import React from 'react'
 
@@ -27,7 +28,7 @@ export default function Guest(props: React.PropsWithChildren<Props>) {
                     Login
                 </Link>
             </div>
-            <img src={`../storage/banner/${props.banner.image}`} alt="" />
+            <img src={props.banner !== null ? `../storage/banner/${props.banner.image}` : defImage} alt="" />
             <main>
                 {props.children}
             </main>
