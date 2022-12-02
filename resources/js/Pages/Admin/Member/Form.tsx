@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { dateToMysql, dateToShow } from "@/Function/function";
 import { Member } from "@/Inteface/Member";
+import { Inertia } from "@inertiajs/inertia";
 
 interface Props {
     group?: Group
@@ -87,7 +88,19 @@ export default function Form({ group, member }: Props) {
                 post(route('member.store'))
                 return
             }
-            put(route('member.update', member?.id))
+            Inertia.post(route('member.update', member?.id), {
+                '_method': 'PUT',
+                'group_id': data.group_id,
+                'type': data.type,
+                'nik': data.nik,
+                'pendidikan': data.pendidikan,
+                'address': data.address,
+                'phone': data.phone,
+                'description': data.description,
+                'image': data.image,
+                'name': data.name
+            })
+            return
         }}>
             <BackButton
                 router={'member'}

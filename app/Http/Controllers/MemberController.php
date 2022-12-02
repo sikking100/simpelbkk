@@ -116,18 +116,24 @@ class MemberController extends Controller
 
     public function list()
     {
-        $groups = Member::all();
+
+        return Inertia::render('Admin/Member/KabupatenList');
+    }
+
+    public function data($year)
+    {
+        $groups = Member::whereYear('created_at', $year)->get();
         $memberRecap = collect();
         foreach ($groups as $key => $value) {
             $user['kecamatan'] = $value->group->user->district->name;
             $user['desa'] = $value->group->user->village->name;
-            $user['group'] = $value->group->name;
+            $user['kelompok'] = $value->group->name;
             $user['name'] = $value->name;
             $user['type'] = $value->type;
             $user['nik'] = $value->nik;
             $user['pendidikan'] = $value->pendidikan;
             $memberRecap->add($user);
         }
-        return Inertia::render('Admin/Member/KabupatenList', compact('memberRecap'));
+        return response()->json($memberRecap);
     }
 }

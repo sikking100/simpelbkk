@@ -91,6 +91,11 @@ export default function Index({ auth, errors, users, flash }: Props) {
                                                 className='btn bg-blue-500'>
                                                 Ubah
                                             </InertiaLink>
+                                            <InertiaLink
+                                                href={route('user.show', e.id)}
+                                                className='btn bg-red-500'>
+                                                Reset Password
+                                            </InertiaLink>
                                         </div></td>
                                     </tr>
                                 ))}

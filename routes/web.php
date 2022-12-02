@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kabupaten/{kecamatan}/desa', 'desa');
         Route::get('/kabupaten/{desa}/data', 'kabupatenData');
         Route::get('/kabupaten-list', 'list')->name('kabupaten.list');
+        Route::get('/kabupaten/{year}/list', 'data');
     });
     Route::controller(MemberController::class)->group(function () {
         Route::get('/group/{group}/index', 'index')->name('member.index');
@@ -80,7 +81,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/member/{member}/update', 'update')->name('member.update');
         Route::delete('/member/{member}/destroy', 'destroy')->name('member.destroy');
         Route::get('/member-list', 'list')->name('member.list');
+        Route::get('/member/{year}/list', 'data');
     });
+    Route::get('/documentation-list', [DocumentationController::class, 'list'])->name('documentation.list');
+    Route::get('/documentation/{year}/list', [DocumentationController::class, 'data']);
+    Route::get('/report-list', [IncomeController::class, 'list'])->name('report.list');
+    Route::get('/report/{year}/list', [IncomeController::class, 'data']);
     Route::get('/dashboard/{year}/data', [DashboardController::class, 'data']);
 });
 

@@ -1,7 +1,7 @@
 export interface ReportRecap {
     kecamatan: string
     desa: string
-    group: string
+    kelompok: string
     bantuan: number
     jenis: string
     realisasi: number

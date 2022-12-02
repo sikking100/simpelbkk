@@ -78,14 +78,7 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                             Dokumentasi
                                         </NavLink>
                                     </li>
-                                    <li className="rounded-lg mb-4">
-                                        <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
-                                        >
-                                            Reset Sandi
-                                        </NavLink>
-                                    </li>
+
                                 </> :
 
                                     <>
@@ -156,16 +149,16 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
-                                                href={route('dashboard')}
-                                                active={route().current('dashboard')}
+                                                href={route('report.list')}
+                                                active={route().current('report.list')}
                                             >
                                                 Laporan
                                             </NavLink>
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
-                                                href={route('dashboard')}
-                                                active={route().current('dashboard')}
+                                                href={route('documentation.list')}
+                                                active={route().current('documentation.list')}
                                             >
                                                 Dokumen
                                             </NavLink>

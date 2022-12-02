@@ -100,4 +100,26 @@ class IncomeController extends Controller
         session()->flash('message', trans('message.delete'));
         return redirect()->route('income.index');
     }
+
+    public function list()
+    {
+        return Inertia::render('Admin/Income/KabupatenList');
+    }
+
+    public function data($year)
+    {
+        $groups = Group::whereYear('date', $year)->get();
+        $datas = collect();
+        foreach ($groups as $key => $value) {
+            $data['kecamatan'] = $value->user->district->name;
+            $data['desa'] = $value->user->village->name;
+            $data['kelompok'] = $value->name;
+            $data['bantuan'] = $value->income->sum('received');
+            $data['jenis'] = $value->typeOfAction->name;
+            $data['realisasi'] = $value->realization->sum('use');
+            $data['keterangan'] = $value->description;
+            $datas->add($data);
+        }
+        return response()->json($datas);
+    }
 }

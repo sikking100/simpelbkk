@@ -1,21 +1,21 @@
 import rupiah from "@/Function/function";
 import { PagesProps } from "@/Inteface/Global";
-import { HomeUser } from "@/Inteface/HomeUser";
+import { ReportRecap } from "@/Inteface/ReportRecap";
 import Authenticated from "@/Layouts/Authenticated";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { tsXLXS } from 'ts-xlsx-export'
-
+import { tsXLXS } from "ts-xlsx-export";
 
 interface Props extends PagesProps {
 }
 
 export default function KabupatenList({ auth, errors }: Props) {
+
     const [year, setYear] = useState<number>(new Date().getFullYear())
-    const [datas, setDatas] = useState<Array<HomeUser>>([])
-    const getData = () => axios.get(`/kabupaten/${year}/list`).then(e => {
+    const [datas, setDatas] = useState<Array<ReportRecap>>([])
+    const getData = () => axios.get(`/report/${year}/list`).then(e => {
         console.log(e);
 
         setDatas(e.data)
@@ -25,14 +25,13 @@ export default function KabupatenList({ auth, errors }: Props) {
         return
     }, [year])
 
-
-    const handleClick = () => tsXLXS().exportAsExcelFile(datas).saveAsExcelFile(`RekapKelompok${year}`)
+    const handleClick = () => tsXLXS().exportAsExcelFile(datas).saveAsExcelFile(`RekapLaporan${year}`)
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header="Rekap Kelompok"
+            header="Rekap Laporan"
         >
             <div>
                 <ReactDatePicker
@@ -51,9 +50,10 @@ export default function KabupatenList({ auth, errors }: Props) {
                             <th>Kecamatan</th>
                             <th>Desa</th>
                             <th>Kelompok</th>
-                            <th>Jenis Kegiatan</th>
-                            <th>No Hp</th>
                             <th>Besar Bantuan</th>
+                            <th>Jenis Kegiatan</th>
+                            <th>Realisasi</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,14 +71,18 @@ export default function KabupatenList({ auth, errors }: Props) {
                                             {e.kelompok}
                                         </td>
                                         <td>
-                                            {e.kegiatan}
-                                        </td>
-                                        <td>
-                                            {e.phone}
-                                        </td>
-                                        <td>
                                             {rupiah(e.bantuan)}
                                         </td>
+                                        <td>
+                                            {e.jenis}
+                                        </td>
+                                        <td>
+                                            {rupiah(e.realisasi)}
+                                        </td>
+                                        <td>
+                                            {e.keterangan}
+                                        </td>
+
                                     </tr>
                                 )
                             })

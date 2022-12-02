@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
 import { Documentation } from "@/Inteface/Documentation";
 import { defImage } from "@/Inteface/DefImage";
+import { Inertia } from "@inertiajs/inertia";
 
 interface Props {
     groups: Array<Group>
@@ -72,7 +73,14 @@ export default function Form({ groups, documentation }: Props) {
                 post(route('documentation.store'))
                 return
             }
-            put(route('documentation.update', documentation?.id))
+            Inertia.post(route('documentation.update', documentation?.id), {
+                '_method': 'PUT',
+                'group_id': data.group_id,
+                'progress': data.progress,
+                'description': data.description,
+                'image': data.image
+            })
+            return
         }}>
             <BackButton
                 router={'documentation'}

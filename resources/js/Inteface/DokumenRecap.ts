@@ -1,7 +1,7 @@
 export interface DokumenRecap {
     kecamatan: string
     desa: string
-    group: string
+    kelompok: string
     proposal?: string
     dokumentasi25?: string
     dokumentasi50?: string

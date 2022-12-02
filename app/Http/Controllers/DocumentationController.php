@@ -118,4 +118,29 @@ class DocumentationController extends Controller
         session()->flash('message', trans('message.delete'));
         return redirect()->route('documentation.index');
     }
+
+    public function list()
+    {
+
+        return Inertia::render('Admin/Documentation/KabupatenList');
+    }
+
+    public function data($year)
+    {
+        $groups = Group::whereYear('date', $year)->get();
+        $datas = collect();
+        foreach ($groups as $key => $value) {
+            $data['kecamatan'] = $value->user->district->name;
+            $data['desa'] = $value->user->village->name;
+            $data['kelompok'] = $value->name;
+            $data['proposal'] = $value->proposal;
+            $data['keterangan'] = $value->description;
+            $data['dokumentasi25'] = $value->documentation->firstWhere('progress', '25%')->image ?? '';
+            $data['dokumentasi50'] = $value->documentation->firstWhere('progress', '50%')->image ?? '';
+            $data['dokumentasi75'] = $value->documentation->firstWhere('progress', '75%')->image ?? '';
+            $data['dokumentasi100'] = $value->documentation->firstWhere('progress', '100%')->image ?? '';
+            $datas->add($data);
+        }
+        return response()->json($datas);
+    }
 }

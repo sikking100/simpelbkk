@@ -168,17 +168,23 @@ class GroupController extends Controller
 
     public function list()
     {
-        $groups = Group::all();
+
+        return Inertia::render('Admin/Group/KabupatenList');
+    }
+
+    public function data($year)
+    {
+        $groups = Group::whereYear('date', $year)->get();
         $homeUsers = collect();
         foreach ($groups as $key => $value) {
             $user['kecamatan'] = $value->user->district->name;
             $user['desa'] = $value->user->village->name;
-            $user['group'] = $value->name;
+            $user['kelompok'] = $value->name;
             $user['kegiatan'] = $value->typeOfAction->name;
             $user['phone'] = $value->phone;
             $user['bantuan'] = Income::where('group_id', $value->id)->get()->sum('received');
             $homeUsers->add($user);
         }
-        return Inertia::render('Admin/Group/KabupatenList', compact('homeUsers'));
+        return response()->json($homeUsers);
     }
 }

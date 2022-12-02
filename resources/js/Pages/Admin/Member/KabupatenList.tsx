@@ -1,15 +1,31 @@
-import rupiah from "@/Function/function";
 import { PagesProps } from "@/Inteface/Global";
-import { HomeUser } from "@/Inteface/HomeUser";
 import { MemberRecap } from "@/Inteface/MemberRecap";
 import Authenticated from "@/Layouts/Authenticated";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { tsXLXS } from "ts-xlsx-export";
+
 
 interface Props extends PagesProps {
-    memberRecap: Array<MemberRecap>
 }
 
-export default function KabupatenList({ auth, errors, memberRecap }: Props) {
+export default function KabupatenList({ auth, errors }: Props) {
+    const [year, setYear] = useState<number>(new Date().getFullYear())
+    const [datas, setDatas] = useState<Array<MemberRecap>>([])
+    const getData = () => axios.get(`/member/${year}/list`).then(e => {
+        console.log(e);
+
+        setDatas(e.data)
+    }).catch(e => console.log(e))
+    useEffect(() => {
+        getData()
+        return
+    }, [year])
+
+    const handleClick = () => tsXLXS().exportAsExcelFile(datas).saveAsExcelFile(`RekapAnggota${year}`)
+
     return (
         <Authenticated
             auth={auth}
@@ -17,7 +33,16 @@ export default function KabupatenList({ auth, errors, memberRecap }: Props) {
             header="Rekap Kelompok"
         >
             <div>
-                <button className="btn">Export Excel</button>
+                <ReactDatePicker
+                    className="rounded mb-6"
+                    value={year?.toString()}
+                    showYearPicker={true}
+                    onChange={(e) => {
+                        if (e === null) return
+                        setYear(e.getFullYear())
+                    }}
+                />
+                <button className="btn" onClick={handleClick}>Export Excel</button>
                 <table className="mt-6 table table-auto w-full">
                     <thead>
                         <tr>
@@ -32,7 +57,7 @@ export default function KabupatenList({ auth, errors, memberRecap }: Props) {
                     </thead>
                     <tbody>
                         {
-                            memberRecap && memberRecap.map((e, i) => {
+                            datas && datas.map((e, i) => {
                                 return (
                                     <tr key={i}>
                                         <td>
@@ -42,7 +67,7 @@ export default function KabupatenList({ auth, errors, memberRecap }: Props) {
                                             {e.desa}
                                         </td>
                                         <td>
-                                            {e.group}
+                                            {e.kelompok}
                                         </td>
                                         <td>
                                             {e.name}

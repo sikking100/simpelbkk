@@ -10,6 +10,7 @@ import route from "ziggy-js";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { dateToMysql, dateToShow } from "@/Function/function";
+import { Inertia } from "@inertiajs/inertia";
 
 interface Props {
     categories: Array<Category>
@@ -93,7 +94,22 @@ export default function Form({ group, categories, types }: Props) {
                 post(route('group.store'))
                 return
             }
-            put(route('group.update', group?.id))
+            Inertia.post(route('group.update', group?.id), {
+                '_method': 'PUT',
+                'image': data.image,
+                'name': data.name,
+                'category_id': data.category_id,
+                'type_of_action_id': data.type_of_action_id,
+                'profil': data.profil,
+                'address': data.address,
+                'description': data.description,
+                'npwp': data.npwp,
+                'phone': data.phone,
+                'date': data.date,
+                'email': data.email,
+                'proposal': data.proposal,
+            })
+            return
         }}>
             <BackButton
                 router={'group'}

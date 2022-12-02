@@ -1,7 +1,7 @@
 export interface HomeUser {
     kecamatan: string
     desa: string
-    group: string
+    kelompok: string
     kegiatan: string
     phone: string
     bantuan: number
