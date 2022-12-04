@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { dateToMysql, dateToShow } from "@/Function/function";
 import { Member } from "@/Inteface/Member";
 import { Inertia } from "@inertiajs/inertia";
+import { pendidikan } from "@/Inteface/Global";
 
 interface Props {
     group?: Group
@@ -181,9 +182,7 @@ export default function Form({ group, member }: Props) {
                         onChange={(e) => setData('pendidikan', e.target.value)}
                     >
                         <option value={''}>-- Pilih Kategori --</option>
-                        <option value={'S1'}>S1</option>
-                        <option value={'S2'}>S2</option>
-                        <option value={'S3'}>S3</option>
+                        {pendidikan.map((e, i) => (<option value={e} key={i}>e</option>))}
                     </select>
                     <ErrorText message={errors.pendidikan} />
                 </div>

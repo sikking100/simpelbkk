@@ -8,8 +8,6 @@ use App\Models\Documentation;
 use App\Models\Group;
 use App\Models\Income;
 use App\Models\Realization;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -19,8 +17,8 @@ class HomeController extends Controller
         $groups = Group::all();
         $homeUsers = collect();
         foreach ($groups as $key => $value) {
-            $user['kecamatan'] = $value->user->district->name;
-            $user['desa'] = $value->user->village->name;
+            $user['kecamatan'] = $value->user->district->name ?? '';
+            $user['desa'] = $value->user->village->name ?? '';
             $user['group'] = $value->name;
             $user['kegiatan'] = $value->typeOfAction->name;
             $user['phone'] = $value->phone;
