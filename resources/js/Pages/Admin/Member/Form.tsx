@@ -4,7 +4,7 @@ import { Category } from "@/Inteface/Category";
 import { defImage } from "@/Inteface/DefImage";
 import { Group } from "@/Inteface/Group";
 import { TypeOfAction } from "@/Inteface/TypeOfAction";
-import { useForm } from "@inertiajs/inertia-react";
+import { Link, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import route from "ziggy-js";
 import DatePicker from 'react-datepicker'
@@ -103,10 +103,11 @@ export default function Form({ group, member }: Props) {
             })
             return
         }}>
-            <BackButton
-                router={'member'}
-                id={group?.id}
-            />
+            <Link
+                className="text-kemenag"
+                href={route('member.index', group?.id ?? member?.group_id)}>
+                Kembali
+            </Link>
             <div className="grid grid-rows-6 grid-flow-col -mx-3 mb-2">
                 <div className="row-span-4">
                     <label className="form-label">
@@ -182,7 +183,7 @@ export default function Form({ group, member }: Props) {
                         onChange={(e) => setData('pendidikan', e.target.value)}
                     >
                         <option value={''}>-- Pilih Kategori --</option>
-                        {pendidikan.map((e, i) => (<option value={e} key={i}>e</option>))}
+                        {pendidikan.map((e, i) => (<option value={e} key={i}>{e}</option>))}
                     </select>
                     <ErrorText message={errors.pendidikan} />
                 </div>
