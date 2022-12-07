@@ -8,6 +8,7 @@ use App\Models\Documentation;
 use App\Models\Group;
 use App\Models\Income;
 use App\Models\Realization;
+use App\Models\Video;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -18,10 +19,12 @@ class HomeController extends Controller
         $documentations = Documentation::all();
         $banner = Banner::all()->first();
         $announcements = Announcement::all()->sortByDesc('date')->values()->all();
+        $videos = Video::all();
         return Inertia::render('Guest/Home', [
             'documentations' => $documentations,
             'banner' => $banner,
-            'announcements' => $announcements
+            'announcements' => $announcements,
+            'videos' => $videos,
         ]);
     }
 

@@ -11,11 +11,14 @@ import { Documentation } from "@/Inteface/Documentation";
 import { HomeUser } from "@/Inteface/HomeUser";
 import { Banner } from "@/Inteface/Banner";
 import { Announcement } from "@/Inteface/Announcement";
+import ReactPlayer from 'react-player'
+import { Video } from "@/Inteface/Video";
 
 interface Props extends PagesProps {
     documentations: Array<Documentation>
     banner: Banner
     announcements: Array<Announcement>
+    videos: Array<Video>
 }
 
 export default function Home(props: Props) {
@@ -78,6 +81,21 @@ export default function Home(props: Props) {
         return
     }, [name])
 
+    const YoutubeSlide = ({ url, isSelected }: { url: string, isSelected: boolean }) => (<ReactPlayer
+        width={'100%'}
+        className={'react-player w-full'}
+        playing={isSelected}
+        url={url}
+    />)
+
+    const getVideoId = (url: string) => url.substring('https://www.youtube.com/watch?v='.length, url.length);
+
+    const getVideoThumb = (videoId: string) => `https://img.youtube.com/vi/${videoId}/default.jpg`
+
+    const customRenderThumb = (children: any[]) => children.map(item => {
+        const videoId = getVideoId(item?.props.url)
+        return <img src={getVideoThumb(videoId)} />
+    })
     return (
         <Guest banner={props.banner}>
             <div className="my-6 mx-6">
@@ -120,6 +138,24 @@ export default function Home(props: Props) {
                             {rupiah(pendapatan)}
                         </p>
                     </div>
+                </div>
+
+                <div className="mt-6 player-wrapper h-5/6">
+                    <Carousel
+                        renderThumbs={customRenderThumb}
+                        showStatus={false}
+                        width={'100%'}
+                        dynamicHeight={true}
+                        className={'m-0'}
+                    >
+                        {props.videos.map(v => (
+                            <YoutubeSlide
+                                key={v.id}
+                                isSelected={false}
+                                url={v.url}
+                            />
+                        ))}
+                    </Carousel>
                 </div>
 
                 <div className="mt-6 md:grid md:grid-cols-3 md:grid-flow-row gap-6">
@@ -230,6 +266,6 @@ export default function Home(props: Props) {
                     </div>
                 </div>
             </div>
-        </Guest>
+        </Guest >
     )
 }
