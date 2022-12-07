@@ -12,9 +12,11 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\RealizationController;
 use App\Http\Controllers\TypeOfActionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\VillageController;
 
 /*
@@ -33,6 +35,7 @@ Route::get('/', [HomeController::class, 'home']);
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home');
     Route::get('/data/{year}', 'data');
+    Route::get('/data/{request}/bottom', 'bottom');
 });
 
 Route::middleware('auth')->group(function () {
@@ -55,6 +58,8 @@ Route::middleware('auth')->group(function () {
         'documentation' => DocumentationController::class,
         'banner' => BannerController::class,
         'announcement' => AnnouncementController::class,
+        'video' => VideoController::class,
+        'opd' => OpdController::class,
     ]);
     Route::get('/district/{district}/create', [DistrictController::class, 'villageCreate'])->name('village.create');
     Route::get('/district/{district}/villages', [DistrictController::class, 'villages']);
@@ -71,6 +76,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kabupaten/{desa}/data', 'kabupatenData');
         Route::get('/kabupaten-list', 'list')->name('kabupaten.list');
         Route::get('/kabupaten/{year}/list', 'data');
+        Route::put('/group/{group}/status', 'updateStatus')->name('update.status');
     });
     Route::controller(MemberController::class)->group(function () {
         Route::get('/group/{group}/index', 'index')->name('member.index');

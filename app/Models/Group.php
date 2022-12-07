@@ -25,6 +25,7 @@ class Group extends Model
         'email',
         'user_id',
         'date',
+        'opd_id',
     ];
 
     /**
@@ -45,6 +46,16 @@ class Group extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the opd that owns the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function opd(): BelongsTo
+    {
+        return $this->belongsTo(Opd::class);
     }
 
     /**

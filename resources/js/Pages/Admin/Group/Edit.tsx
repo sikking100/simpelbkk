@@ -2,6 +2,7 @@ import { Category } from '@/Inteface/Category';
 import { District } from '@/Inteface/District';
 import { PagesProps } from '@/Inteface/Global';
 import { Group } from '@/Inteface/Group';
+import { Opd } from '@/Inteface/Opd';
 import { TypeOfAction } from '@/Inteface/TypeOfAction';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
@@ -12,9 +13,11 @@ interface Props extends PagesProps {
     categories: Array<Category>
     types: Array<TypeOfAction>
     group: Group
+    opdes: Array<Opd>
+
 }
 
-export default function Create({ auth, errors, group, categories, types }: Props) {
+export default function Create({ auth, errors, group, categories, opdes, types }: Props) {
     return (
         <Authenticated
             auth={auth}
@@ -26,6 +29,7 @@ export default function Create({ auth, errors, group, categories, types }: Props
                 categories={categories}
                 types={types}
                 group={group}
+                opdes={opdes}
             />
         </Authenticated>
     )

@@ -24,9 +24,10 @@ return new class extends Migration
             $table->text('description');
             $table->string('npwp', 100);
             $table->string('phone', 100);
-            $table->string('proposal', 100);
+            $table->string('proposal', 100)->nullable();
             $table->string('email')->nullable();
             $table->date('date');
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

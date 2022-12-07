@@ -92,6 +92,14 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                         </li>
                                         <li className="rounded-lg mb-4">
                                             <NavLink
+                                                href={route('video.index')}
+                                                active={route().current('video.*')}
+                                            >
+                                                Video
+                                            </NavLink>
+                                        </li>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
                                                 href={route('announcement.index')}
                                                 active={route().current('announcement.*')}
                                             >
@@ -121,6 +129,14 @@ export default function Authenticated({ auth, errors, header, children }: React.
                                                 active={route().current('typeOfAction.*')}
                                             >
                                                 Tipe Kegiatan
+                                            </NavLink>
+                                        </li>
+                                        <li className="rounded-lg mb-4">
+                                            <NavLink
+                                                href={route('opd.index')}
+                                                active={route().current('opd.*')}
+                                            >
+                                                Opd Teknis
                                             </NavLink>
                                         </li>
                                         <li className="rounded-lg mb-4">

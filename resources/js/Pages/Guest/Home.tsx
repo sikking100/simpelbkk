@@ -14,7 +14,6 @@ import { Announcement } from "@/Inteface/Announcement";
 
 interface Props extends PagesProps {
     documentations: Array<Documentation>
-    homeUsers: Array<HomeUser>
     banner: Banner
     announcements: Array<Announcement>
 }
@@ -23,10 +22,13 @@ export default function Home(props: Props) {
     console.log(props);
 
     const [year, setYear] = useState<number>(new Date().getFullYear())
+    const [yearBottom, setYearBottom] = useState<number>(new Date().getFullYear())
+    const [name, setName] = useState<string>()
     const [pendapatan, setPendapatan] = useState<number>(0)
     const [kelompok, setKelompok] = useState<number>(0)
     const [dana, setDana] = useState<number>(0)
     const [realisasi, setRealisasi] = useState<number>(0)
+    const [homeUsers, setHomeUsers] = useState<Array<HomeUser>>([])
     function getData() {
         axios.get(`/data/${year}`).then((e) => {
             console.log(e)
@@ -38,6 +40,21 @@ export default function Home(props: Props) {
 
     }
 
+    function getDataBottom() {
+        axios.get(`/data/${yearBottom}/bottom`).then((e) => {
+            console.log(e)
+            setHomeUsers(e.data)
+        }).catch((er) => console.log(er));
+    }
+
+    function getDataSearchBottom() {
+        axios.get(`/data/${name}/bottom`).then((e) => {
+            console.log(e)
+            setHomeUsers(e.data)
+        }).catch((er) => console.log(er));
+    }
+
+
     useEffect(() => {
         if (year != null) {
             getData()
@@ -45,13 +62,29 @@ export default function Home(props: Props) {
         return
     }, [year])
 
+    useEffect(() => {
+        if (yearBottom != null) {
+            getDataBottom()
+        }
+        return
+    }, [yearBottom])
+
+
+    useEffect(() => {
+        if (name != null && name.length > 5) {
+
+            getDataSearchBottom()
+        }
+        return
+    }, [name])
+
     return (
         <Guest banner={props.banner}>
             <div className="my-6 mx-6">
-                <div className="gap-6 flex flex-row items-center max-w-fit">
-                    <div className="max-w-fit">
+                <div className="gap-6 flex flex-col md:flex-row md:items-center max-w-fit">
+                    <div className="max-w-full">
                         <ReactDatePicker
-                            className="w-min"
+                            className="md:w-min w-full"
                             dateFormat={'yyyy'}
                             value={year.toString()}
                             showYearPicker={true}
@@ -63,7 +96,7 @@ export default function Home(props: Props) {
                         />
                     </div>
 
-                    <div className="">
+                    <div className="float-right">
                         <p>TOTAL DANA BKK</p>
                         <p>
                             {rupiah(dana)}
@@ -89,10 +122,18 @@ export default function Home(props: Props) {
                     </div>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-6 md:grid md:grid-cols-3 md:grid-flow-row gap-6">
+                    <div className="md:w-full box-border border-collapse border-black border p-6">
+                        <b>Pengumuman</b>
+                        <div className="h-24 md:h-50 overflow-scroll">
+                            {
+                                props.announcements && props.announcements.map((e, i) => (<p key={i}>{dateToShow(Date.parse(e.date))} - {e.description}</p>))
+                            }
+                        </div>
+                    </div>
                     <Carousel
                         autoPlay={true}
-                        className="min-w-full">
+                        className="min-w-full mt-6 md:mt-0 md:col-span-2 ">
                         {
                             props.documentations && props.documentations.map((e, i) => {
                                 return (
@@ -104,28 +145,48 @@ export default function Home(props: Props) {
                         }
                     </Carousel>
                 </div>
-                <div className="mt-6 grid grid-cols-3 grid-flow-row gap-6">
-                    <div className="w-full box-border border-collapse border-black border p-6">
-                        <b>Pengumuman</b>
-                        {
-                            props.announcements && props.announcements.map((e, i) => (<p key={i}>{dateToShow(Date.parse(e.date))} - {e.description}</p>))
-                        }
+                <div className="mt-6">
+                    <div>
+                        <div className="flex flex-auto">
+                            <ReactDatePicker
+                                className="md:w-min w-full"
+                                dateFormat={'yyyy'}
+                                value={yearBottom.toString()}
+                                showYearPicker={true}
+                                onChange={(e) => {
+                                    if (e !== null) {
+                                        setYearBottom(e.getFullYear())
+                                    }
+                                }}
+                            />
+                            <input
+                                className="w-7/12"
+                                type="text"
+                                enterKeyHint="search"
+                                placeholder="Cari berdasarkan Nama Kelompok atau Nama Desa"
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div className="col-span-2">
-                        <table className="table table-auto w-full">
+                    <div className="mt-6 sm:min-w-full overflow-x-auto">
+                        <table className="table table-auto md:w-full md:h-50 overflow-scroll">
                             <thead>
                                 <tr>
                                     <th>Kecamatan</th>
                                     <th>Desa</th>
                                     <th>Kelompok</th>
-                                    <th>Jenis Kegiatan</th>
+                                    <th>Kategori Kelompok</th>
+                                    <th>Ketua</th>
                                     <th>No Hp</th>
                                     <th>Besar Bantuan</th>
+                                    <th>Pendapatan</th>
+                                    <th>Opd Teknis</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    props.homeUsers && props.homeUsers.map((e, i) => {
+                                    homeUsers && homeUsers.map((e, i) => {
                                         return (
                                             <tr key={i}>
                                                 <td>
@@ -135,16 +196,30 @@ export default function Home(props: Props) {
                                                     {e.desa}
                                                 </td>
                                                 <td>
-                                                    {e.group}
+                                                    {e.kelompok}
                                                 </td>
                                                 <td>
-                                                    {e.kegiatan}
+                                                    {e.kategori}
+                                                </td>
+                                                <td>
+                                                    {e.ketua}
                                                 </td>
                                                 <td>
                                                     {e.phone}
                                                 </td>
                                                 <td>
                                                     {rupiah(e.bantuan)}
+                                                </td>
+                                                <td>
+                                                    {rupiah(e.pendapatan)}
+                                                </td>
+                                                <td>
+                                                    {e.opd}
+                                                </td>
+                                                <td>
+                                                    <div className={`box ${e.status === 'Aktif' ? 'bg-green-600' : 'bg-red-600'} rounded text-white box px-6 py-2`}>
+                                                        {e.status}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         )

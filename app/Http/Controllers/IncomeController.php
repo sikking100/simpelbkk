@@ -118,6 +118,8 @@ class IncomeController extends Controller
             $data['jenis'] = $value->typeOfAction->name;
             $data['realisasi'] = $value->realization->sum('use');
             $data['keterangan'] = $value->description;
+            $data['status'] = $value->status;
+            $data['id'] = $value->id;
             $datas->add($data);
         }
         return response()->json($datas);

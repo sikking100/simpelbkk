@@ -22,7 +22,8 @@ return new class extends Migration
             $table->text('address');
             $table->string('phone');
             $table->text('description')->nullable();
-            $table->string('ktp', 100);
+            $table->string('image', 100);
+            $table->string('name', 100);
             $table->timestamps();
         });
     }

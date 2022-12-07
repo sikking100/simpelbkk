@@ -14,23 +14,12 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $groups = Group::all();
-        $homeUsers = collect();
-        foreach ($groups as $key => $value) {
-            $user['kecamatan'] = $value->user->district->name ?? '';
-            $user['desa'] = $value->user->village->name ?? '';
-            $user['group'] = $value->name;
-            $user['kegiatan'] = $value->typeOfAction->name;
-            $user['phone'] = $value->phone;
-            $user['bantuan'] = Income::where('group_id', $value->id)->get()->sum('received');
-            $homeUsers->add($user);
-        }
+
         $documentations = Documentation::all();
         $banner = Banner::all()->first();
         $announcements = Announcement::all()->sortByDesc('date')->values()->all();
         return Inertia::render('Guest/Home', [
             'documentations' => $documentations,
-            'homeUsers' => $homeUsers,
             'banner' => $banner,
             'announcements' => $announcements
         ]);
@@ -48,5 +37,31 @@ class HomeController extends Controller
             'group' => $totalGroup,
             'pendapatan' => $pendapatan,
         ]);
+    }
+
+    public function bottom($request)
+    {
+        if (is_numeric($request)) {
+            $groups = Group::whereYear('date', $request)->get();
+        } else {
+            $groups = Group::all()->filter(function ($value, $key) use ($request) {
+                return str()->contains(str($value->name)->upper(), str()->upper($request)) || str()->contains(str($value->user->village->name)->upper(), str()->upper($request));
+            });
+        }
+        $homeUsers = collect();
+        foreach ($groups as $key => $value) {
+            $user['kecamatan'] = $value->user->district->name ?? '';
+            $user['desa'] = $value->user->village->name ?? '';
+            $user['kelompok'] = $value->name;
+            $user['kategori'] = $value->category->name;
+            $user['ketua'] = $value->member->firstWhere('type', 'ketua')->name;
+            $user['phone'] = $value->phone;
+            $user['bantuan'] = $value->income->sum('received');
+            $user['pendapatan'] = $value->income->sum('income');
+            $user['opd'] = $value->opd->name;
+            $user['status'] = $value->status;
+            $homeUsers->add($user);
+        }
+        return response()->json($homeUsers);
     }
 }

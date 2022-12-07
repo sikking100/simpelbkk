@@ -2,11 +2,13 @@ import rupiah from "@/Function/function";
 import { PagesProps } from "@/Inteface/Global";
 import { ReportRecap } from "@/Inteface/ReportRecap";
 import Authenticated from "@/Layouts/Authenticated";
+import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { tsXLXS } from "ts-xlsx-export";
+import route from "ziggy-js";
 
 interface Props extends PagesProps {
 }
@@ -25,6 +27,24 @@ export default function KabupatenList({ auth, errors }: Props) {
         return
     }, [year])
 
+    const [showAlert, setShowAlert] = React.useState(true);
+
+    React.useEffect(() => {
+        console.log('initialize interval')
+        if (showAlert == false) {
+            setShowAlert(true)
+        }
+        const interval = setInterval(() => {
+            if (showAlert == true) {
+                setShowAlert(false)
+            }
+            return
+        }, 5000)
+        return () => {
+            console.log('clearing interval')
+            clearInterval(interval)
+        }
+    }, [])
     const handleClick = () => tsXLXS().exportAsExcelFile(datas).saveAsExcelFile(`RekapLaporan${year}`)
 
     return (
@@ -54,6 +74,7 @@ export default function KabupatenList({ auth, errors }: Props) {
                             <th>Jenis Kegiatan</th>
                             <th>Realisasi</th>
                             <th>Keterangan</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +102,24 @@ export default function KabupatenList({ auth, errors }: Props) {
                                         </td>
                                         <td>
                                             {e.keterangan}
+                                        </td>
+                                        <td>
+                                            <button
+                                                onClick={(r) => {
+                                                    const title = `Yakin ingin ${e.status === 'Aktif' ? 'menonaktifkan' : 'mengaktifkan'} data`
+                                                    r.preventDefault()
+                                                    if (confirm(title)) {
+                                                        setShowAlert(true)
+                                                        Inertia.put(route('update.status', e.id));
+                                                        getData()
+                                                    }
+                                                }}
+                                                className={e.status === 'Aktif' ? 'btn bg-green-500' : 'btn bg-red-500'}
+                                                title={e.status === 'Aktif' ? 'Nonaktifkan' : 'Aktifkan'}
+
+                                            >
+                                                {e.status}
+                                            </button>
                                         </td>
 
                                     </tr>

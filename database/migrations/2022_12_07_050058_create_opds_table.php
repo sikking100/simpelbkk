@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('members', function (Blueprint $table) {
+        Schema::create('opds', function (Blueprint $table) {
+            $table->id();
             $table->string('name', 100);
+            $table->timestamps();
         });
 
-        Schema::table('members', function (Blueprint $table) {
-            $table->renameColumn('ktp', 'image');
+        Schema::table('groups', function (Blueprint $table) {
+            $table->foreignId('opd_id')->nullable()->unique()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('opds');
     }
 };

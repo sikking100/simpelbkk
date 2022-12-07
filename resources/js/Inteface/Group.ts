@@ -16,4 +16,7 @@ export interface Group {
     email: string
     user_id: number
     village_id: number
+    opd_id: number
+    opd_name?: string
+    status: string
 }

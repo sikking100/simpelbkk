@@ -11,11 +11,13 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { dateToMysql, dateToShow } from "@/Function/function";
 import { Inertia } from "@inertiajs/inertia";
+import { Opd } from "@/Inteface/Opd";
 
 interface Props {
     categories: Array<Category>
     types: Array<TypeOfAction>
     group?: Group | null
+    opdes: Array<Opd>
 }
 
 interface FormProps {
@@ -31,10 +33,11 @@ interface FormProps {
     date: string
     email: string
     proposal: File | null
+    opd_id: number
 
 }
 
-export default function Form({ group, categories, types }: Props) {
+export default function Form({ group, categories, opdes, types }: Props) {
     type keys = keyof FormProps
 
     const { data, setData, post, put, errors } = useForm<FormProps>({
@@ -50,6 +53,7 @@ export default function Form({ group, categories, types }: Props) {
         date: group?.date ?? dateToMysql(Date.prototype),
         email: group?.email ?? '',
         proposal: null,
+        opd_id: group?.opd_id ?? 0,
     })
 
     const title = group === null ? 'Simpan' : 'Ubah'
@@ -87,6 +91,8 @@ export default function Form({ group, categories, types }: Props) {
         setData('image', file)
     }
 
+
+
     return (
         <form className="w-full p-6" onSubmit={(e) => {
             e.preventDefault()
@@ -108,12 +114,14 @@ export default function Form({ group, categories, types }: Props) {
                 'date': data.date,
                 'email': data.email,
                 'proposal': data.proposal,
+                'opd_id': data.opd_id,
             })
             return
         }}>
             <BackButton
                 router={'group'}
             />
+            {Object.values(errors).map(e => (<p>{e}</p>))}
             <div className="grid grid-rows-4 grid-flow-col -mx-3 mb-2">
                 <div className="row-span-3">
                     <img src={preview} className="h-2/3 mb-6" />
@@ -264,6 +272,21 @@ export default function Form({ group, categories, types }: Props) {
                         }}
                     />
                     <ErrorText message={errors.date} />
+                </div>
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Opd Teknis
+                    </label>
+                    <select
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"
+                        value={data.opd_id}
+                        name={'opd_id'}
+                        onChange={(e) => setData('opd_id', Number.parseInt(e.target.value))}
+                    >
+                        <option value={0}>-- Pilih Opd Teknis --</option>
+                        {opdes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
+                    </select>
+                    <ErrorText message={errors.opd_id} />
                 </div>
                 <div className="w-full px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

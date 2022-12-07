@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\District;
 use App\Models\Group;
 use App\Models\Income;
+use App\Models\Opd;
 use App\Models\TypeOfAction;
 use App\Models\User;
 use App\Models\Village;
@@ -44,9 +45,11 @@ class GroupController extends Controller
     {
         $categories = Category::all();
         $types = TypeOfAction::all();
+        $opdes = Opd::all();
         return Inertia::render('Admin/Group/Create', [
             'categories' => $categories,
-            'types' => $types
+            'types' => $types,
+            'opdes' => $opdes,
         ]);
     }
 
@@ -97,10 +100,12 @@ class GroupController extends Controller
     {
         $categories = Category::all();
         $types = TypeOfAction::all();
+        $opdes = Opd::all();
         return Inertia::render('Admin/Group/Edit', [
             'categories' => $categories,
             'types' => $types,
-            'group' => $group
+            'group' => $group,
+            'opdes' => $opdes,
         ]);
     }
 
@@ -113,7 +118,27 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        if ($request->image != null) {
+            $this->upload->deleteImage('groups', $group);
+            $this->upload->uploadImage($request, 'groups', $group);
+        }
+
+        if ($request->proposal != null) {
+            $this->upload->deleteProposal('groups', $group);
+            $this->upload->uploadProposal($request, 'groups', $group);
+        }
+
+        $group->update($request->except(['image', 'proposal']));
+        session()->flash('message', trans('message.update'));
+        return redirect()->route('group.index');
+    }
+
+    public function updateStatus(Group $group)
+    {
+        $group['status'] = $group->status == 'Aktif' ? 'Tidak Aktif' : 'Aktif';
+        $group->update();
+        session()->flash('message', trans('message.update'));
+        return redirect()->route('report.list');
     }
 
     /**

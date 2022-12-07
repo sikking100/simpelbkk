@@ -6,4 +6,6 @@ export interface ReportRecap {
     jenis: string
     realisasi: number
     keterangan: string
+    status: string
+    id: number
 }

@@ -11,7 +11,7 @@ interface Props {
 export default function Guest(props: React.PropsWithChildren<Props>) {
     return (
         <div className={'w-full'}>
-            <div className={'bg-primary-dark py-6 px-6 float-right space-x-4 mb-6 inline-flex w-full'} style={{ justifyContent: 'end' }}>
+            <div className={'bg-primary py-6 px-6 float-right space-x-4 mb-6 inline-flex w-full'} style={{ justifyContent: 'end' }}>
                 <Link
                     className={'btn'}
                     href='https://pemdes.morowaliutarakab.go.id'>
@@ -28,11 +28,11 @@ export default function Guest(props: React.PropsWithChildren<Props>) {
                     Login
                 </Link>
             </div>
-            <img src={props.banner !== null ? `../storage/banner/${props.banner.image}` : defImage} alt="" />
+            <img src={props.banner !== null ? `../storage/banner/${props.banner.image}` : defImage} alt="" className='w-full' />
             <main>
                 {props.children}
             </main>
-            <div className="bg-primary-dark">
+            <div className="bg-primary">
                 <div className="px-5 text-white py-6">
                     Copyright &copy;2022 Dinas Pemberdayaan Masyarakat dan Desa Daerah Kabupaten Morowali Utara - CV. Buana Power
                 </div>

@@ -1,19 +1,17 @@
 import Alert from '@/Component/Alert'
-import { District } from '@/Inteface/District'
 import { PagesProps } from '@/Inteface/Global'
-import { Village } from '@/Inteface/Village'
+import { Video } from '@/Inteface/Video'
 import Authenticated from '@/Layouts/Authenticated'
-import { PageProps } from '@inertiajs/inertia'
+import { Inertia } from '@inertiajs/inertia'
 import { Head, InertiaLink } from '@inertiajs/inertia-react'
 import React from 'react'
 import route from 'ziggy-js'
 
 interface Props extends PagesProps {
-    district: District
-    villages: Array<Village>
+    videos: Array<Video>
 }
 
-export default function Index({ auth, errors, villages, flash, district }: Props) {
+export default function Index({ auth, errors, videos, flash }: Props) {
     const [showAlert, setShowAlert] = React.useState(true);
 
     React.useEffect(() => {
@@ -32,16 +30,14 @@ export default function Index({ auth, errors, villages, flash, district }: Props
             clearInterval(interval)
         }
     }, [])
-    console.log(typeof villages);
-
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={`Kecamatan ${district.name}`}
+            header={'Video'}
         >
             <Head
-                title='Desa'
+                title='Video'
             />
             <Alert
                 showAlert={showAlert}
@@ -49,15 +45,15 @@ export default function Index({ auth, errors, villages, flash, district }: Props
                 message={flash?.message ?? ''}
             />
             <InertiaLink
-                href={route('village.create', district.id)}
+                href={route('video.create')}
                 className='btn'
             >
-                Tambah Desa
+                Tambah
             </InertiaLink>
             <div
                 className='mt-6'
             >
-                {villages.length === 0 ? (
+                {videos.length === 0 ? (
                     <div>
                         <p>Data Kosong</p>
                     </div>
@@ -72,16 +68,28 @@ export default function Index({ auth, errors, villages, flash, district }: Props
                                 </tr>
                             </thead>
                             <tbody>
-                                {villages.map((e, i) => (
+                                {videos.map((e, i) => (
                                     <tr key={i}>
                                         <td>{i + 1}</td>
-                                        <td>{e.name}</td>
+                                        <td>{e.url}</td>
                                         <td><div className='flex gap-2'>
                                             <InertiaLink
-                                                href={route('village.edit', [e.district_id, e.id])}
+                                                href={route('video.edit', e.id)}
                                                 className='btn bg-blue-500'>
                                                 Ubah
                                             </InertiaLink>
+                                            <button
+                                                onClick={(r) => {
+                                                    r.preventDefault()
+                                                    if (confirm("Yakin ingin mengahpus data?")) {
+                                                        setShowAlert(true)
+                                                        Inertia.delete(route('video.destroy', e.id));
+                                                    }
+                                                }}
+                                                className={'btn bg-red-700'}
+                                            >
+                                                Hapus
+                                            </button>
                                         </div></td>
                                     </tr>
                                 ))}
