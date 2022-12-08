@@ -69,7 +69,7 @@ export default function Index({ auth, errors, videos, flash }: Props) {
                             </thead>
                             <tbody>
                                 {videos.map((e, i) => (
-                                    <tr key={i}>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>>
                                         <td>{i + 1}</td>
                                         <td>{e.url}</td>
                                         <td><div className='flex gap-2'>

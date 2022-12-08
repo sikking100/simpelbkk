@@ -158,18 +158,46 @@ export default function Home(props: Props) {
                     </Carousel>
                 </div>
 
-                <div className="mt-6 md:grid md:grid-cols-3 md:grid-flow-row gap-6">
-                    <div className="md:w-full box-border border-collapse border-black border p-6">
+                <div className="mt-6 md:grid md:grid-cols-4 md:grid-flow-row gap-6">
+                    <div className="md:w-full box-border border-collapse border-black border p-6 md:col-span-2">
                         <b>Pengumuman</b>
-                        <div className="h-24 md:h-50 overflow-scroll">
-                            {
-                                props.announcements && props.announcements.map((e, i) => (<p key={i}>{dateToShow(Date.parse(e.date))} - {e.description}</p>))
-                            }
+                        <div className="h-64 md:h-50 overflow-scroll">
+                            <table
+                                className="table table-auto"
+                            >
+                                <thead>
+                                    <th>Dari Tanggal</th>
+                                    <th>S/D Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>Jenis Kegiatan</th>
+                                    <th>Peserta</th>
+                                </thead>
+                                <tbody>
+                                    {
+                                        props.announcements && props.announcements.map(e => (
+                                            <tr key={e.id} className={e.id % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                                <td>{dateToShow(Date.parse(e.begin))}</td>
+                                                <td>{dateToShow(Date.parse(e.end))}</td>
+                                                <td>
+                                                    {e.location}
+                                                </td>
+                                                <td>
+                                                    {e.type}
+                                                </td>
+                                                <td>
+                                                    {e.participant}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                     <Carousel
                         autoPlay={true}
-                        className="min-w-full mt-6 md:mt-0 md:col-span-2 ">
+                        className="min-w-full mt-6 md:mt-0 md:col-span-2">
                         {
                             props.documentations && props.documentations.map((e, i) => {
                                 return (
@@ -224,7 +252,7 @@ export default function Home(props: Props) {
                                 {
                                     homeUsers && homeUsers.map((e, i) => {
                                         return (
-                                            <tr key={i}>
+                                            <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
                                                 <td>
                                                     {e.kecamatan}
                                                 </td>

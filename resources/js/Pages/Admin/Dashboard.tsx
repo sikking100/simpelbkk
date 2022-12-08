@@ -61,24 +61,24 @@ export default function Dashboard({ auth, errors }: PagesProps) {
             </form>
             <div className="grid grid-cols-2 mt-6 gap-6">
                 <div
-                    className="card-dashboard"
+                    className="card-dashboard bg-green-300"
                 >
                     Pendapatan Kelompok Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                     <p>{rupiah(pendapatan)}</p>
                 </div>
-                <div className="card-dashboard">
+                <div className="card-dashboard bg-blue-600">
                     Total Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                     <p>
                         {kelompok.toString()}
                     </p>
                 </div>
-                <div className="card-dashboard">
+                <div className="card-dashboard bg-primary-dark">
                     Total Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                     <p>
                         {rupiah(dana)}
                     </p>
                 </div>
-                <div className="card-dashboard">
+                <div className="card-dashboard bg-primary">
                     Realisasi Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
                     <p>
                         {rupiah(realisasi)}

@@ -15,15 +15,23 @@ interface Props {
 }
 
 interface FormProps {
-    date: string
-    description: string
+    begin: string
+    end: string
+    location: string
+    type: string
+    participant: string
 }
 
 export default function Form({ announcement }: Props) {
     const { data, setData, post, put, errors } = useForm<FormProps>({
-        date: announcement?.date ?? dateToMysql(Date.prototype),
-        description: announcement?.description ?? ''
+        begin: announcement?.begin ?? dateToMysql(Date.prototype),
+        end: announcement?.end ?? dateToMysql(Date.prototype),
+        type: announcement?.type ?? '',
+        participant: announcement?.participant ?? '',
+        location: announcement?.location ?? ''
     })
+
+    type keys = keyof FormProps
 
     const title = announcement === undefined ? 'Simpan' : 'Ubah'
     return (
@@ -40,29 +48,71 @@ export default function Form({ announcement }: Props) {
             />
             <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full px-3">
-                    <label htmlFor="date" className="form-label">
-                        Tanggal
+                    <label htmlFor="begin" className="form-label">
+                        Dari Tanggal
                     </label>
                     <ReactDatePicker
                         className="form-input"
-                        value={dateToShow(Date.parse(data.date))}
+                        value={dateToShow(Date.parse(data.begin))}
                         onChange={(e) => {
                             if (e !== null) {
-                                setData('date', moment(e).format('YYYY-MM-DD HH:mm:ss'))
+                                setData('begin', moment(e).format('YYYY-MM-DD HH:mm:ss'))
+                            }
+                        }}
+                    />
+                </div>
+                <div className="w-full px-3">
+                    <label htmlFor="end" className="form-label">
+                        S/D Tanggal
+                    </label>
+                    <ReactDatePicker
+                        className="form-input"
+                        value={dateToShow(Date.parse(data.end))}
+                        onChange={(e) => {
+                            if (e !== null) {
+                                setData('end', moment(e).format('YYYY-MM-DD HH:mm:ss'))
                             }
                         }}
                     />
                 </div>
                 <div className="w-full px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Keterangan
+                        Lokasi
                     </label>
-                    <textarea
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"
-                        value={data.description}
-                        onChange={(e) => setData('description', e.target.value)}
-                    ></textarea>
-                    <ErrorText message={errors.description} />
+                    <input
+                        type="text"
+                        className="form-input"
+                        name="location"
+                        onChange={(e) => setData(e.target.name as keys, e.target.value)}
+
+                    />
+                    <ErrorText message={errors.location} />
+                </div>
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Jenis Kegiatan
+                    </label>
+                    <input
+                        type="text"
+                        className="form-input"
+                        name="type"
+                        onChange={(e) => setData(e.target.name as keys, e.target.value)}
+
+                    />
+                    <ErrorText message={errors.type} />
+                </div>
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Peserta
+                    </label>
+                    <input
+                        type="text"
+                        className="form-input"
+                        name="participant"
+                        onChange={(e) => setData(e.target.name as keys, e.target.value)}
+
+                    />
+                    <ErrorText message={errors.participant} />
                 </div>
             </div>
 

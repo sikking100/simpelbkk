@@ -3,6 +3,7 @@ import { dateToShow } from '@/Function/function'
 import { Announcement } from '@/Inteface/Announcement'
 import { PagesProps } from '@/Inteface/Global'
 import Authenticated from '@/Layouts/Authenticated'
+import { Inertia } from '@inertiajs/inertia'
 import { Head, InertiaLink } from '@inertiajs/inertia-react'
 import React from 'react'
 import route from 'ziggy-js'
@@ -63,24 +64,44 @@ export default function Index({ auth, errors, announcements, flash }: Props) {
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanngal</th>
-                                    <th>Keterangan</th>
+                                    <th>Dari Tanngal</th>
+                                    <th>S/D Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>Jenis Kegiatan</th>
+                                    <th>Peserta</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {announcements.map((e, i) => (
-                                    <tr key={i}>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
                                         <td>{i + 1}</td>
-                                        <td>{dateToShow(Date.parse(e.date))}</td>
-                                        <td>{e.description}</td>
+                                        <td>{dateToShow(Date.parse(e.begin))}</td>
+                                        <td>{dateToShow(Date.parse(e.end))}</td>
+
+                                        <td>{e.location}</td>
+                                        <td>{e.type}</td>
+                                        <td>{e.participant}</td>
                                         <td><div className='flex gap-2'>
                                             <InertiaLink
                                                 href={route('announcement.edit', e.id)}
                                                 className='btn bg-blue-500'>
                                                 Ubah
                                             </InertiaLink>
+                                            <button
+                                                onClick={(r) => {
+                                                    r.preventDefault()
+                                                    if (confirm("Yakin ingin mengahpus data?")) {
+                                                        setShowAlert(true)
+                                                        Inertia.delete(route('announcement.destroy', e.id));
+                                                    }
+                                                }}
+                                                className={'btn bg-red-700'}
+                                            >
+                                                Hapus
+                                            </button>
                                         </div></td>
+
                                     </tr>
                                 ))}
                             </tbody>

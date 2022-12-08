@@ -70,7 +70,7 @@ export default function Index({ auth, errors, categories, flash }: Props) {
                             </thead>
                             <tbody>
                                 {categories.map((e, i) => (
-                                    <tr key={i}>
+                                    <tr key={i} className={i % 2 != 0 ? 'bg-gray-400' : 'bg-gray-50'}>
                                         <td>{i + 1}</td>
                                         <td>{e.name}</td>
                                         <td><div className='flex gap-2'>

@@ -47,6 +47,7 @@ export default function Login({ siteKey, banner }: Props) {
                 <img src="../assets/logo.png" alt="" className={'h-40 mb-2'} />
                 <p className={'text-2xl'}>Login Dashboard</p>
                 <p className="text-xl">SIMPEL - BKK</p>
+                <p>versi 1.0</p>
                 <p className="text-lg">Dinas Pemberdayaan Masyarakat dan Desa Daerah</p>
                 <p className="text-lg">Kabupaten Morowali Utara</p>
                 <form onSubmit={onSubmit} className={"my-16 flex flex-col"}>

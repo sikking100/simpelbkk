@@ -1,5 +1,8 @@
 export interface Announcement {
     id: number
-    date: string
-    description: string
+    begin: string
+    end: string
+    location: string
+    type: string
+    participant: string
 }

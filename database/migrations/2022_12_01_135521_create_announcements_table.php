@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->text('description');
+            $table->date('begin');
+            $table->date('end');
+            $table->text('location');
+            $table->text('type');
+            $table->text('participant');
             $table->timestamps();
         });
     }

@@ -12,11 +12,12 @@ export default function Guest(props: React.PropsWithChildren<Props>) {
     return (
         <div className={'w-full'}>
             <div className={'bg-primary py-6 px-6 float-right space-x-4 mb-6 inline-flex w-full'} style={{ justifyContent: 'end' }}>
-                <Link
+                <a
+                    target={'_blank'}
                     className={'btn'}
                     href='https://pemdes.morowaliutarakab.go.id'>
                     DPMD
-                </Link>
+                </a>
                 <Link
                     className={'btn'}
                     href='/'>

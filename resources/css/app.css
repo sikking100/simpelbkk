@@ -13,15 +13,15 @@
     }
 
     .card-dashboard {
-        @apply bg-primary p-6 rounded
+        @apply p-6 rounded text-white
     }
 
     th {
-        @apply border border-slate-600
+        @apply border border-white bg-blue-300
     }
 
     td {
-        @apply border border-slate-700 p-5
+        @apply border border-white p-1
     }
 
     .form-input {

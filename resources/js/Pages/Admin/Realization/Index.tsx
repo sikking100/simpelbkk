@@ -100,7 +100,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                             </thead>
                             <tbody>
                                 {realizations.map((e, i) => (
-                                    <tr key={i}>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>>
                                         <td>{i + 1}</td>
                                         <td>{moment(e.date).format('DD MMMM YYYY')}</td>
                                         <td>{Intl.NumberFormat('id').format(e.use)}</td>

@@ -10,7 +10,10 @@ class Announcement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
-        'description',
+        'begin',
+        'end',
+        'location',
+        'type',
+        'participant',
     ];
 }
