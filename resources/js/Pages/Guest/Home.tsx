@@ -114,25 +114,25 @@ export default function Home(props: Props) {
                         />
                     </div>
 
-                    <div className="float-right">
+                    <div className="float-right card-dashboard bg-primary-dark">
                         <p>TOTAL DANA BKK</p>
                         <p>
                             {rupiah(dana)}
                         </p>
                     </div>
-                    <div className="">
+                    <div className="card-dashboard bg-primary">
                         <p>REALISASI DANA BKK</p>
                         <p>
                             {rupiah(realisasi)}
                         </p>
                     </div>
-                    <div className="">
+                    <div className="card-dashboard bg-blue-600">
                         <p>TOTAL PENERIMA DANA BKK</p>
                         <p>
                             {kelompok}
                         </p>
                     </div>
-                    <div className="">
+                    <div className="card-dashboard bg-green-300">
                         <p>PENDAPATAN KELOMPOK PENERIMA DANA BKK</p>
                         <p>
                             {rupiah(pendapatan)}
