@@ -81,7 +81,7 @@ export default function KabupatenList({ auth, errors }: Props) {
                         {
                             datas && datas.map((e, i) => {
                                 return (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
                                         <td>
                                             {e.kecamatan}
                                         </td>

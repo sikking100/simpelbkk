@@ -124,7 +124,7 @@ export default function Index({ auth, errors, members, flash, group }: Props) {
                             </thead>
                             <tbody>
                                 {members.filter((e) => e.type === 'anggota').map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
                                         <td>{i + 1}</td>
                                         <td>{e.name}</td>
                                         <td>{e.nik}</td>

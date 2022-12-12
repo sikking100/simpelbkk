@@ -13,7 +13,7 @@
     }
 
     .card-dashboard {
-        @apply p-6 rounded text-white
+        @apply p-6 rounded h-28 text-center content-center grid text-white
     }
 
     th {

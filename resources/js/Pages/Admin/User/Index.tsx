@@ -80,7 +80,7 @@ export default function Index({ auth, errors, users, flash }: Props) {
                             </thead>
                             <tbody>
                                 {users.map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>>
+                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
                                         <td>{i + 1}</td>
                                         <td>{e.username}</td>
                                         <td>{e.village_name ?? '-'}</td>
