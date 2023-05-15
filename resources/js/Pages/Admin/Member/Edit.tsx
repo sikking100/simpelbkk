@@ -18,9 +18,9 @@ export default function Create({ auth, errors, member }: Props) {
         <Authenticated
             auth={auth}
             errors={errors}
-            header={'Ubah Kecamatan'}
+            header={'Ubah Data Anggota'}
         >
-            <Head title='Ubah Kecamatan' />
+            <Head title='Ubah Data Anggota' />
             <Form
                 member={member}
             />
