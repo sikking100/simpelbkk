@@ -132,7 +132,7 @@ export default function Form({ groups, income }: Props) {
                 </div>
                 <div className="w-full px-3 col-span-2">
                     <label className="form-label">
-                        Keterangan Penggunaan
+                        Keterangan Penjualan Barang/Jasa
                     </label>
                     <textarea
                         className="form-input"
