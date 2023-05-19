@@ -32,7 +32,7 @@ export default function KabupatenList({ auth, errors }: Props) {
             errors={errors}
             header="Rekap Kelompok"
         >
-            <div>
+            <div className=" overflow-auto">
                 <ReactDatePicker
                     className="rounded mb-6"
                     value={year?.toString()}
@@ -59,7 +59,7 @@ export default function KabupatenList({ auth, errors }: Props) {
                         {
                             datas && datas.map((e, i) => {
                                 return (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                    <tr key={i}  >
                                         <td>
                                             {e.kecamatan}
                                         </td>

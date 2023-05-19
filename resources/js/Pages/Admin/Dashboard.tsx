@@ -48,39 +48,46 @@ export default function Dashboard({ auth, errors }: PagesProps) {
             <Head
                 title="Dashboard" />
             <form>
-                <DatePicker
-                    value={year.toString()}
-                    dateFormat={'yyyy'}
-                    showYearPicker={true}
-                    onChange={(e) => {
-                        if (e == null) return
-                        const year = e.getFullYear()
-                        setYear(year)
-                    }}
-                />
+                <div className="appearance-none w-min bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight flex">
+                    <DatePicker
+                        className="w-min border-none bg-transparent p-0"
+                        value={year.toString()}
+                        dateFormat={'yyyy'}
+                        showYearPicker={true}
+                        onChange={(e) => {
+                            if (e == null) return
+                            const year = e.getFullYear()
+                            setYear(year)
+                        }}
+                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </div>
+
             </form>
             <div className="grid grid-cols-2 mt-6 gap-6">
                 <div
-                    className="card-dashboard bg-green-300"
+                    className={"card-dashboard border-l-blue-600 border-l-8 shadow-sm shadow-black"}
                 >
-                    Pendapatan Kelompok Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
-                    <p>{rupiah(pendapatan)}</p>
+                    <p className="text-blue-600">Pendapatan Kelompok Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}</p>
+                    <p className="md:text-2xl">{rupiah(pendapatan)}</p>
                 </div>
-                <div className="card-dashboard bg-blue-600">
-                    Total Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
-                    <p>
+                <div className="card-dashboard border-l-green-600 border-l-8 shadow-sm shadow-black">
+                    <p className="text-green-600">Total Penerima Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}</p>
+                    <p className="md:text-2xl">
                         {kelompok.toString()}
                     </p>
                 </div>
-                <div className="card-dashboard bg-primary-dark">
-                    Total Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
-                    <p>
+                <div className="card-dashboard border-l-cyan-500 border-l-8 shadow-sm shadow-black">
+                    <p className="text-cyan-500">Total Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}</p>
+                    <p className="md:text-2xl">
                         {rupiah(dana)}
                     </p>
                 </div>
-                <div className="card-dashboard bg-primary">
-                    Realisasi Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}
-                    <p>
+                <div className="card-dashboard border-l-yellow-400 border-l-8 shadow-sm shadow-black">
+                    <p className="text-yellow-400">Realisasi Dana Bkk {auth?.user.type === 'desa' ? 'Desa' : ''}</p>
+                    <p className="md:text-2xl">
                         {rupiah(realisasi)}
                     </p>
                 </div>

@@ -59,7 +59,7 @@ export default function Index({ auth, errors, announcements, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
+                    <div className='w-full overflow-auto'>
                         <table className='table table-auto w-full border-collapse border border-slate-500'>
                             <thead>
                                 <tr>
@@ -74,7 +74,7 @@ export default function Index({ auth, errors, announcements, flash }: Props) {
                             </thead>
                             <tbody>
                                 {announcements.map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                    <tr key={i}  >
                                         <td>{i + 1}</td>
                                         <td>{dateToShow(Date.parse(e.begin))}</td>
                                         <td>{dateToShow(Date.parse(e.end))}</td>

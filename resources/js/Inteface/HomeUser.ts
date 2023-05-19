@@ -9,4 +9,5 @@ export interface HomeUser {
     pendapatan: number
     opd: string
     status: string
+    kegiatan: string
 }

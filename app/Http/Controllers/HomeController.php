@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\Documentation;
 use App\Models\Group;
 use App\Models\Income;
+use App\Models\Pagu;
 use App\Models\Realization;
 use App\Models\Video;
 use Inertia\Inertia;
@@ -30,11 +31,13 @@ class HomeController extends Controller
 
     public function data($year)
     {
+        $pagu = Pagu::whereYear('date', $year)->get()->sum('value');
         $totalDana = Income::whereYear('date', $year)->get()->sum('received');
         $realisasi = Realization::whereYear('date', $year)->get()->sum('amount');
         $totalGroup = Group::whereYear('created_at', $year)->get()->count();
         $pendapatan = Income::whereYear('date', $year)->get()->sum('income');
         return response()->json([
+            'pagu' => $pagu,
             'dana' => $totalDana,
             'realisasi' => $realisasi,
             'group' => $totalGroup,

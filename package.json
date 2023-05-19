@@ -36,7 +36,7 @@
         "react-google-recaptcha": "^2.1.0",
         "react-player": "^2.11.0",
         "react-timeago": "^7.1.0",
-        "tailwindcss": "^3.2.1",
+        "tailwindcss": "^3.3.2",
         "ts-loader": "^9.4.1",
         "ts-node": "^10.9.1",
         "ts-xlsx-export": "^1.0.1",

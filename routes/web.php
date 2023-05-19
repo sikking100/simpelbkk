@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\PaguController;
 use App\Http\Controllers\RealizationController;
 use App\Http\Controllers\TypeOfActionController;
 use App\Http\Controllers\UserController;
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
         'income' => IncomeController::class,
         'documentation' => DocumentationController::class,
         'banner' => BannerController::class,
+        'pagu' => PaguController::class,
         'announcement' => AnnouncementController::class,
         'video' => VideoController::class,
         'opd' => OpdController::class,

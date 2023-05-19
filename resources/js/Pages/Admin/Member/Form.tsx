@@ -108,7 +108,7 @@ export default function Form({ group, member }: Props) {
                 href={route('member.index', group?.id ?? member?.group_id)}>
                 Kembali
             </Link>
-            <div className="grid grid-rows-6 grid-flow-col -mx-3 mb-2">
+            <div className="md:grid md:grid-flow-col">
                 <div className="row-span-4">
                     <label className="form-label">
                         Upload KTP
@@ -122,7 +122,7 @@ export default function Form({ group, member }: Props) {
                     />
                     <ErrorText message={errors.image} />
                 </div>
-                <div className="w-full px-3 col-span-2">
+                <div className="w-full md:px-3 col-span-2">
                     <label className="form-label">
                         Keterangan
                     </label>
@@ -134,7 +134,7 @@ export default function Form({ group, member }: Props) {
                     </textarea>
                     <ErrorText message={errors.description} />
                 </div>
-                <div className="w-full px-3 col-span-2">
+                <div className="w-full md:px-3 col-span-2">
                     <label className="form-label">
                         Alamat
                     </label>
@@ -147,7 +147,7 @@ export default function Form({ group, member }: Props) {
                     <ErrorText message={errors.address} />
                 </div>
 
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Nik
                     </label>
@@ -160,7 +160,7 @@ export default function Form({ group, member }: Props) {
                     />
                     <ErrorText message={errors.nik} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Nama
                     </label>
@@ -173,9 +173,9 @@ export default function Form({ group, member }: Props) {
                     />
                     <ErrorText message={errors.name} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Pendidikan
+                        Pendidikan Terakhir
                     </label>
                     <select
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"
@@ -188,7 +188,7 @@ export default function Form({ group, member }: Props) {
                     <ErrorText message={errors.pendidikan} />
                 </div>
 
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         No Hp
                     </label>
@@ -204,7 +204,7 @@ export default function Form({ group, member }: Props) {
 
 
             </div>
-            <div className="w-full pb-6 px-3 inline-flex gap-2">
+            <div className="w-full pb-6 md:px-3 inline-flex gap-2">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     Ketua Kelompok
                 </label>

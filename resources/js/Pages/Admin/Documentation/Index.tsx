@@ -76,7 +76,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
             <div
                 className='mt-6'
             >
-                <select onChange={handleChange} >
+                <select onChange={handleChange} className="form-input">
                     <option value="0">-- Pilih Kelompok --</option>
                     {groups.map((e, i) => (<option value={e.id} key={i}>{e.name}</option>))}
                 </select>
@@ -85,7 +85,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
+                    <div className='w-full overflow-auto'>
                         <table className='mt-6 table table-auto w-full border-collapse border border-slate-500'>
                             <thead>
                                 <tr>
@@ -97,7 +97,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                             </thead>
                             <tbody>
                                 {documentations.map((e, i) => (
-                                    <tr key={i} className={i % 2 != 0 ? 'bg-gray-400' : 'bg-gray-50'}>
+                                    <tr key={i}  >
                                         <td>{i + 1}</td>
                                         <td>{e.progress}</td>
                                         <td>{e.description}</td>

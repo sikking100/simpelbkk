@@ -76,7 +76,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
             <div
                 className='mt-6'
             >
-                <select onChange={handleChange} className='mb-6'>
+                <select onChange={handleChange} className='form-input mb-6'>
                     <option value="0">-- Pilih Kelompok --</option>
                     {groups.map((e, i) => (<option value={e.id} key={i}>{e.name}</option>))}
                 </select>
@@ -85,7 +85,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
+                    <div className='w-full overflow-auto'>
                         <p>Total {Intl.NumberFormat('id').format(realizations.map(e => e.amount).reduce((e, v) => e + v))}</p>
                         <table className='mt-6 table table-auto w-full border-collapse border border-slate-500'>
                             <thead>
@@ -100,7 +100,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                             </thead>
                             <tbody>
                                 {realizations.map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                    <tr key={i}  >
                                         <td>{i + 1}</td>
                                         <td>{moment(e.date).format('DD MMMM YYYY')}</td>
                                         <td>{Intl.NumberFormat('id').format(e.use)}</td>

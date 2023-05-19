@@ -19,7 +19,12 @@ module.exports = {
                 'secondary': '#9E0903',
                 'secondary-dark': '#D00C04',
                 'nav': '#04C8D0',
-                'nav-hover': '#9E0903'
+                'nav-hover': '#9E0903',
+                'mint': '#CFF5E7',
+                'teal': '#A0E4CB',
+                'cold': '#59C1BD',
+                'navy': '#0D4C92',
+                'nav-hover': '#0D4C92'
             },
         },
     },

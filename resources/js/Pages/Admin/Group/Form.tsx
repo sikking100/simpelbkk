@@ -122,7 +122,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                 router={'group'}
             />
             {Object.values(errors).map(e => (<p>{e}</p>))}
-            <div className="grid grid-rows-4 grid-flow-col -mx-3 mb-2">
+            <div className="md:grid md:grid-rows-4 md:grid-flow-col -mx-3 mb-2">
                 <div className="row-span-3">
                     <img src={preview} className="h-2/3 mb-6" />
                     <input
@@ -133,7 +133,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.image} />
                 </div>
-                <div className="w-full px-3 col-span-2">
+                <div className="w-full md:px-3 col-span-2">
                     <label className="form-label">
                         Profil
                     </label>
@@ -145,7 +145,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     </textarea>
                     <ErrorText message={errors.category_id} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Nama
                     </label>
@@ -158,7 +158,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.name} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Kategori Kelompok
                     </label>
@@ -173,7 +173,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     </select>
                     <ErrorText message={errors.category_id} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Jenis Kegiatan
                     </label>
@@ -189,7 +189,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     <ErrorText message={errors.type_of_action_id} />
                 </div>
 
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Alamat
                     </label>
@@ -202,7 +202,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.address} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Keterangan Usaha
                     </label>
@@ -215,7 +215,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.description} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Npwp Ketua
                     </label>
@@ -228,7 +228,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.npwp} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         No Hp
                     </label>
@@ -242,7 +242,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     <ErrorText message={errors.phone} />
                 </div>
 
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Proposal
                     </label>
@@ -258,7 +258,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.proposal} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className={'form-label'}>
                         Tanggal
                     </label>
@@ -273,7 +273,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     />
                     <ErrorText message={errors.date} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Opd Teknis
                     </label>
@@ -288,7 +288,7 @@ export default function Form({ group, categories, opdes, types }: Props) {
                     </select>
                     <ErrorText message={errors.opd_id} />
                 </div>
-                <div className="w-full px-3">
+                <div className="w-full md:px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Email (opsional)
                     </label>

@@ -44,7 +44,7 @@ export default function Kabupatend({ districts, auth, errors }: Props) {
             auth={auth}
             errors={errors}
         >
-            <div className="gap-6 flex">
+            <div className="md:gap-6 flex flex-col space-y-2 md:space-y-0 md:flex-row">
                 <select name="kecamatan" id="" onChange={(e) => {
                     if (e.target.value !== null) {
 

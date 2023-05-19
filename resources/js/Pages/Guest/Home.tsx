@@ -30,11 +30,13 @@ export default function Home(props: Props) {
     const [pendapatan, setPendapatan] = useState<number>(0)
     const [kelompok, setKelompok] = useState<number>(0)
     const [dana, setDana] = useState<number>(0)
+    const [pagu, setPagu] = useState<number>(0)
     const [realisasi, setRealisasi] = useState<number>(0)
     const [homeUsers, setHomeUsers] = useState<Array<HomeUser>>([])
     function getData() {
         axios.get(`/data/${year}`).then((e) => {
             console.log(e)
+            setPagu(e.data.pagu)
             setDana(e.data.dana)
             setRealisasi(e.data.realisasi)
             setKelompok(e.data.group)
@@ -84,17 +86,26 @@ export default function Home(props: Props) {
     const YoutubeSlide = ({ url, isSelected }: { url: string, isSelected: boolean }) => (<ReactPlayer
         width={'100%'}
         className={'react-player w-full'}
+        height={'500px'}
         playing={isSelected}
         url={url}
     />)
 
-    const getVideoId = (url: string) => url.substring('https://www.youtube.com/watch?v='.length, url.length);
+    const getVideoId = (url: string) => {
+        if (url.includes("https://youtu.be/")) {
+            return url.substring('https://youtu.be/'.length, url.length);
+        }
+        if (url.includes('https://youtube.com')) {
+            return url.substring('https://youtube.com/watch?v='.length, url.length);
+        }
+        return url.substring('https://www.youtube.com/watch?v='.length, url.length);
+    };
 
     const getVideoThumb = (videoId: string) => `https://img.youtube.com/vi/${videoId}/default.jpg`
 
     const customRenderThumb = (children: any[]) => children.map(item => {
         const videoId = getVideoId(item?.props.url)
-        return <img src={getVideoThumb(videoId)} />
+        return <img key={videoId} src={getVideoThumb(videoId)} />
     })
     return (
         <Guest banner={props.banner}>
@@ -102,7 +113,7 @@ export default function Home(props: Props) {
                 <div className="gap-6 flex flex-col md:flex-row md:items-center max-w-fit">
                     <div className="max-w-full">
                         <ReactDatePicker
-                            className="md:w-min w-full"
+                            className="md:w-min w-full form-input"
                             dateFormat={'yyyy'}
                             value={year.toString()}
                             showYearPicker={true}
@@ -114,32 +125,38 @@ export default function Home(props: Props) {
                         />
                     </div>
                     <div className="card-dashboard bg-primary-dark">
-                        <p>TOTAL DANA BKK</p>
+                        <p>PAGU ANGGARAN BKK</p>
                         <p>
-                            {rupiah(100000000000)}
+                            {rupiah(pagu)}
+                        </p>
+                    </div>
+                    <div className="card-dashboard bg-primary-dark">
+                        <p>PROGRESS PENCAIRAN DANA BKK</p>
+                        <p>
+                            {`${dana / pagu * 100} %`}
                         </p>
                     </div>
                     <div className="card-dashboard bg-primary">
                         <p>REALISASI DANA BKK</p>
                         <p>
-                            {rupiah(100000000000)}
+                            {rupiah(realisasi)}
                         </p>
                     </div>
                     <div className="card-dashboard bg-blue-600">
                         <p>TOTAL PENERIMA DANA BKK</p>
                         <p>
-                            {1000}
+                            {kelompok}
                         </p>
                     </div>
                     <div className="card-dashboard bg-green-300">
-                        <p>PENDAPATAN KELOMPOK PENERIMA DANA BKK</p>
+                        <p>PENDAPATAN KELOMPOK DANA BKK</p>
                         <p>
-                            {rupiah(100000000000)}
+                            {rupiah(pendapatan)}
                         </p>
                     </div>
                 </div>
 
-                <div className="mt-6 player-wrapper h-5/6">
+                <div className="mt-6 player-wrapper h-1/2">
                     <Carousel
                         renderThumbs={customRenderThumb}
                         showStatus={false}
@@ -157,7 +174,21 @@ export default function Home(props: Props) {
                     </Carousel>
                 </div>
 
-                <div className="mt-6 md:grid md:grid-cols-4 md:grid-flow-row gap-6">
+                <div className="mt-6 md:grid md:grid-flow-cols gap-6">
+
+                    <Carousel
+                        autoPlay={true}
+                        className="min-w-full mt-6 md:mt-0 md:col-span-2">
+                        {
+                            props.documentations && props.documentations.map((e, i) => {
+                                return (
+                                    <div key={i} className={'mx-auto'}>
+                                        <img src={`../storage/documentations/${e.image}`} alt="" className="min-w-full" />
+                                    </div>
+                                )
+                            })
+                        }
+                    </Carousel>
                     <div className="md:w-full box-border border-collapse border-black border p-6 md:col-span-2">
                         <b>Pengumuman</b>
                         <div className="h-64 md:h-50 overflow-scroll">
@@ -165,16 +196,18 @@ export default function Home(props: Props) {
                                 className="table table-auto"
                             >
                                 <thead>
-                                    <th>Dari Tanggal</th>
-                                    <th>S/D Tanggal</th>
-                                    <th>Lokasi</th>
-                                    <th>Jenis Kegiatan</th>
-                                    <th>Peserta</th>
+                                    <tr>
+                                        <th>Dari Tanggal</th>
+                                        <th>S/D Tanggal</th>
+                                        <th>Lokasi</th>
+                                        <th>Jenis Kegiatan</th>
+                                        <th>Peserta</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         props.announcements && props.announcements.map(e => (
-                                            <tr key={e.id} className={e.id % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                            <tr key={e.id}>
                                                 <td>{dateToShow(Date.parse(e.begin))}</td>
                                                 <td>{dateToShow(Date.parse(e.end))}</td>
                                                 <td>
@@ -194,25 +227,12 @@ export default function Home(props: Props) {
                             </table>
                         </div>
                     </div>
-                    <Carousel
-                        autoPlay={true}
-                        className="min-w-full mt-6 md:mt-0 md:col-span-2">
-                        {
-                            props.documentations && props.documentations.map((e, i) => {
-                                return (
-                                    <div key={i} className={'mx-auto'}>
-                                        <img src={`../storage/documentations/${e.image}`} alt="" className="min-w-full" />
-                                    </div>
-                                )
-                            })
-                        }
-                    </Carousel>
                 </div>
                 <div className="mt-6">
                     <div>
                         <div className="flex flex-auto">
                             <ReactDatePicker
-                                className="md:w-min w-full"
+                                className="md:w-min w-full form-input"
                                 dateFormat={'yyyy'}
                                 value={yearBottom.toString()}
                                 showYearPicker={true}
@@ -223,7 +243,7 @@ export default function Home(props: Props) {
                                 }}
                             />
                             <input
-                                className="w-7/12"
+                                className="w-7/12 form-input"
                                 type="text"
                                 enterKeyHint="search"
                                 placeholder="Cari berdasarkan Nama Kelompok atau Nama Desa"
@@ -251,7 +271,7 @@ export default function Home(props: Props) {
                                 {
                                     homeUsers && homeUsers.map((e, i) => {
                                         return (
-                                            <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                            <tr key={i}  >
                                                 <td>
                                                     {e.kecamatan}
                                                 </td>

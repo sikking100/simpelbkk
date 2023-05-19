@@ -62,7 +62,7 @@ export default function Index({ auth, errors, members, flash, group }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
+                    <div className='w-full overflow-auto'>
                         <p>Ketua Kelompok</p>
                         <div className='inline-flex gap-6'>
                             <div>
@@ -124,7 +124,7 @@ export default function Index({ auth, errors, members, flash, group }: Props) {
                             </thead>
                             <tbody>
                                 {members.filter((e) => e.type === 'anggota').map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                    <tr key={i}  >
                                         <td>{i + 1}</td>
                                         <td>{e.name}</td>
                                         <td>{e.nik}</td>

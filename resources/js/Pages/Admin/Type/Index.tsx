@@ -57,7 +57,7 @@ export default function Index({ auth, errors, types, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
+                    <div className='w-full overflow-auto'>
                         <table className='table table-auto w-full border-collapse border border-slate-500'>
                             <thead>
                                 <tr>
@@ -68,7 +68,7 @@ export default function Index({ auth, errors, types, flash }: Props) {
                             </thead>
                             <tbody>
                                 {types.map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
+                                    <tr key={i}  >
                                         <td>{i + 1}</td>
                                         <td>{e.name}</td>
                                         <td><div className='flex gap-2'>

@@ -58,19 +58,19 @@ export default function Index({ auth, errors, videos, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full'>
-                        <table className='table table-auto w-full border-collapse border border-slate-500'>
-                            <thead>
+                    <div className='w-full overflow-auto'>
+                        <table className='table table-auto w-full'>
+                            <thead >
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Aksi</th>
+                                    <th >No</th>
+                                    <th >Nama</th>
+                                    <th >Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {videos.map((e, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-gray-200'}>
-                                        <td>{i + 1}</td>
+                                    <tr key={i}>
+                                        <td className='text-center'>{i + 1}</td>
                                         <td>{e.url}</td>
                                         <td><div className='flex gap-2'>
                                             <InertiaLink
