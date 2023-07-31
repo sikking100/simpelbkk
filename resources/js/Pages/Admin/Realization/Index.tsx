@@ -92,8 +92,8 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <th>Penggunaan</th>
-                                    <th>Jumlah</th>
+                                    <th>Saldo BKK</th>
+                                    <th>Realisasi Belanja</th>
                                     <th>Keterangan Penggunaan</th>
                                     <th>Aksi</th>
                                 </tr>

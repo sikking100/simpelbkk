@@ -81,7 +81,7 @@ export default function Index({ auth, errors, members, flash, group }: Props) {
                             </div>
                             <div>
                                 <label htmlFor="" className="form-label">
-                                    Pendidikan
+                                    Pendidikan Terakhir
                                 </label>
                                 <p>{chief?.pendidikan}</p>
 

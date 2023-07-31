@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
         Schema::table('groups', function (Blueprint $table) {
-            $table->foreignId('opd_id')->nullable()->unique()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('opd_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

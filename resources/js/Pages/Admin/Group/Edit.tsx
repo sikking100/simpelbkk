@@ -22,9 +22,9 @@ export default function Create({ auth, errors, group, categories, opdes, types }
         <Authenticated
             auth={auth}
             errors={errors}
-            header={'Ubah Kecamatan'}
+            header={'Ubah Data Kelompok'}
         >
-            <Head title='Ubah Kecamatan' />
+            <Head title='Ubah Data Kelompok' />
             <Form
                 categories={categories}
                 types={types}

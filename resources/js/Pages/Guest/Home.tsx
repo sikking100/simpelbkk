@@ -107,6 +107,8 @@ export default function Home(props: Props) {
         const videoId = getVideoId(item?.props.url)
         return <img key={videoId} src={getVideoThumb(videoId)} />
     })
+
+    const prgrsPencairanDana = pagu === 0 ? 0 : (dana / pagu * 100);
     return (
         <Guest banner={props.banner}>
             <div className="my-6 mx-6">
@@ -131,9 +133,9 @@ export default function Home(props: Props) {
                         </p>
                     </div>
                     <div className="card-dashboard bg-primary-dark">
-                        <p>PROGRESS PENCAIRAN DANA BKK</p>
+                        <p>DANA BKK SUDAH TERSALURKAN</p>
                         <p>
-                            {`${dana / pagu * 100} %`}
+                            {`${prgrsPencairanDana.toFixed(2)} %`}
                         </p>
                     </div>
                     <div className="card-dashboard bg-primary">
@@ -143,7 +145,7 @@ export default function Home(props: Props) {
                         </p>
                     </div>
                     <div className="card-dashboard bg-blue-600">
-                        <p>TOTAL PENERIMA DANA BKK</p>
+                        <p>JUMLAH KELOMPOK PENERIMA DANA BKK</p>
                         <p>
                             {kelompok}
                         </p>

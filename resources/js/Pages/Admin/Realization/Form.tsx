@@ -88,7 +88,7 @@ export default function Form({ groups, realization }: Props) {
 
                 <div className="w-full px-3">
                     <label className="form-label">
-                        Realisasi Belanja
+                        Saldo BKK
                     </label>
                     <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"
@@ -110,7 +110,7 @@ export default function Form({ groups, realization }: Props) {
                 </div>
                 <div className="w-full px-3">
                     <label className="form-label">
-                        Jumlah
+                        Realisasi Belanja
                     </label>
                     <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"

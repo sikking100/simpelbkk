@@ -55,7 +55,7 @@ export default function Show({ member, auth, errors }: Props) {
                 </div>
                 <div className="w-full px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Pendidikan
+                        Pendidikan Terakhir
                     </label>
                     <p>
                         {member.pendidikan}

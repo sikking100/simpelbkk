@@ -52,7 +52,7 @@ export default function KabupatenList({ auth, errors }: Props) {
                             <th>Nama</th>
                             <th>Jabatan</th>
                             <th>Nik</th>
-                            <th>Pendidikan</th>
+                            <th>Pendidikan Terakhir</th>
                         </tr>
                     </thead>
                     <tbody>

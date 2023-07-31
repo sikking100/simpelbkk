@@ -57,31 +57,36 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                         <p>Data Kosong</p>
                     </div>
                 ) : (
-                    <div className='w-full grid md:grid-cols-3'>
-                        {groups.map((e, i) => (<div key={i} className='max-w-fit border-2 border-black rounded-lg'>
-                            <img src={`../../../storage/groups/${e.image}`} alt="" className='w-full rounded-t-lg' />
-                            <hr className="min-w-full border-b-1 border-black" />
-                            <div className='flex flex-col p-6 gap-2'>
-                                <p>{e.name}</p>
-                                <div className='flex flex-col lg:flex-row gap-2'>
-                                    <InertiaLink
-                                        href={route('group.edit', e.id)}
-                                        className='btn bg-blue-600'
-                                    >Edit
-                                    </InertiaLink>
-                                    <InertiaLink
-                                        href={route('group.show', e.id)}
-                                        className='btn bg-yellow-600'
-                                    >Detail
-                                    </InertiaLink>
-                                    <InertiaLink
-                                        href={route('member.index', e.id)}
-                                        className='btn bg-green-600'
-                                    >Anggota
-                                    </InertiaLink>
+                    <div className='flex flex-row gap-2 flex-wrap'>
+                        {groups.map((e, i) => (
+                            <div key={i} className='border-2 border-black rounded-lg'>
+                                <img src={`../../../storage/groups/${e.image}`} alt="" className='object-cover rounded-t-lg md:h-32 md:w-full' />
+                                <hr className="border-b-1 border-black" />
+                                <div className='p-2'>
+                                    <p>{e.name}</p>
+                                    <div className='pt-2 gap-1 flex flex-col md:flex-row'>
+                                        <InertiaLink
+                                            href={route('group.edit', e.id)}
+                                            className='btn bg-blue-600'
+                                        >Edit
+                                        </InertiaLink>
+                                        <InertiaLink
+                                            href={route('group.show', e.id)}
+                                            className='btn bg-yellow-600'
+                                        >Detail
+                                        </InertiaLink>
+                                        <InertiaLink
+                                            href={route('member.index', e.id)}
+                                            className='btn bg-green-600'
+                                        >Anggota
+                                        </InertiaLink>
+                                    </div>
                                 </div>
                             </div>
-                        </div>))}
+
+                        )
+                        )
+                        }
                     </div>
                 )}
             </div>

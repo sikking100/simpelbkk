@@ -94,6 +94,8 @@ class MemberController extends Controller
         if ($request->image != null) {
             $this->upload->deleteImage('members', $member);
             $this->upload->uploadImage($request, 'members', $member);
+        } else {
+            $request['image'] = $member->image;
         }
         $member->update($request->all());
         session()->flash('message', trans('message.update'));

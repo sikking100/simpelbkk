@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pagu;
+use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,8 +16,8 @@ class PaguController extends Controller
      */
     public function index()
     {
-        $pagu = Pagu::all()->first();
-        return Inertia::render('Admin/Pagu/Index', compact('pagu'));
+        $pagus = Pagu::all();
+        return Inertia::render('Admin/Pagu/Index', compact('pagus'));
     }
 
     /**
@@ -26,7 +27,7 @@ class PaguController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Pagu/Create');
     }
 
     /**
@@ -37,7 +38,20 @@ class PaguController extends Controller
      */
     public function store(Request $request)
     {
-        $pagu = Pagu::make($request->all());
+        // check if date is already
+        // dd($request->date);
+        $d = new DateTime($request->date);
+        $pagu = Pagu::whereYear('date', $d->format('Y'))->first();
+        if ($pagu == null) {
+            $pagu = new Pagu;
+        }
+        // $pagu = Pagu::find(1);
+        // if (count($pagu) > 0) {
+            $pagu->date = $d;
+            $pagu->value = $request->value;
+        // } else {
+            // $pagu = Pagu::make($request->all());
+        // }
         $pagu->save();
         session()->flash('message', trans('message.create'));
         return redirect()->route('pagu.index');
@@ -62,7 +76,7 @@ class PaguController extends Controller
      */
     public function edit(Pagu $pagu)
     {
-        //
+        return Inertia::render('Admin/Pagu/Edit', compact('pagu'));
     }
 
     /**
@@ -74,6 +88,8 @@ class PaguController extends Controller
      */
     public function update(Request $request, Pagu $pagu)
     {
+        $pagu->value = $request->value;
+        $pagu->date = $request->date;
         $pagu->update();
         session()->flash('message', trans('message.update'));
         return redirect()->route('pagu.index');
@@ -87,6 +103,8 @@ class PaguController extends Controller
      */
     public function destroy(Pagu $pagu)
     {
-        //
+        $pagu->delete();
+        session()->flash('message', trans('message.delete'));
+        return redirect()->route('pagu.index');
     }
 }
