@@ -60,7 +60,7 @@ class HomeController extends Controller
             $user['desa'] = $value->user->village->name ?? '';
             $user['kelompok'] = $value->name;
             $user['kategori'] = $value->category->name;
-            $user['ketua'] = $value->member->firstWhere('type', 'ketua')->name;
+            $user['ketua'] = $value->member->firstWhere('type', 'ketua')->name ?? '';
             $user['phone'] = $value->phone;
             $user['bantuan'] = $value->income->sum('received');
             $user['pendapatan'] = $value->income->sum('income');

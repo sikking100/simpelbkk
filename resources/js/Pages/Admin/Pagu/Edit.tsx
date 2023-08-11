@@ -14,9 +14,9 @@ export default function Create({ auth, errors, pagu }: Props) {
         <Authenticated
             auth={auth}
             errors={errors}
-            header={'Ubah Opd Teknis'}
+            header={'Ubah Pagu Anggaran BKK'}
         >
-            <Head title='Ubah Opd Teknis' />
+            <Head title='Ubah Pagu Anggaran BKK' />
             <Form
                 pagu={pagu} />
         </Authenticated>

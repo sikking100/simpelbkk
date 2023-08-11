@@ -47,7 +47,7 @@ export default function Home(props: Props) {
 
     function getDataBottom() {
         axios.get(`/data/${yearBottom}/bottom`).then((e) => {
-            console.log(e)
+            console.log(e.data)
             setHomeUsers(e.data)
         }).catch((er) => console.log(er));
     }

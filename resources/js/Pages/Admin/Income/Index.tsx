@@ -94,7 +94,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                                     <th>Tanggal</th>
                                     <th>Anggaran Diterima</th>
                                     <th>Pendapatan</th>
-                                    <th>Keterangan Penggunaan</th>
+                                    <th>Keterangan Penjualan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

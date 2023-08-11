@@ -96,6 +96,15 @@ export default function Form({ group, categories, opdes, types }: Props) {
     return (
         <form className="w-full p-6" onSubmit={(e) => {
             e.preventDefault()
+            if (data.image == null) {
+                alert('Gambar tidak boleh kosong')
+                return
+            }
+
+            if (data.proposal == null) {
+                alert('Proposal tidak boleh kosong')
+                return
+            }
             if (group === null) {
                 post(route('group.store'))
                 return
