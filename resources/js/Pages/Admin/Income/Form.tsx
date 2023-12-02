@@ -42,6 +42,9 @@ export default function Form({ groups, income }: Props) {
 
     return (
         <form className="w-full p-6" onSubmit={(e) => {
+            if (data.description === '') {
+                alert('Deskripsi tidak boleh kosong')
+            }
             e.preventDefault()
             if (income === undefined) {
                 post(route('income.store'))

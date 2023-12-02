@@ -7,6 +7,7 @@ use App\Models\District;
 use App\Models\Group;
 use App\Models\Income;
 use App\Models\Opd;
+use App\Models\Realization;
 use App\Models\TypeOfAction;
 use App\Models\User;
 use App\Models\Village;
@@ -150,6 +151,23 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         //
+        $this->upload->deleteImage('groups', $group);
+        $this->upload->deleteProposal('groups', $group);
+        $group->delete();
+        session()->flash('message', trans('message.delete'));
+        return redirect()->route('group.index');
+        //hapus realisasi
+        // $realization = Realization::firstWhere('group_id', $group->id);
+        // //delete realisasi kalau ada
+        // if ($realization->isNotEmpty()) {
+        //     $realization->delete();
+        // }
+        // //hapus income
+        // $income = Income::firstWhere('group_id', $group->id);
+        // //delete income kalau ada
+        // if ($income->isNotEmpty()) {
+        //     $income->delete();
+        // }
     }
 
     public function realizations(Group $group)
