@@ -48,7 +48,7 @@ class PaguController extends Controller
         // $pagu = Pagu::find(1);
         // if (count($pagu) > 0) {
             $pagu->date = $d;
-            $pagu->value = $request->value;
+            $pagu->value = strval($request->value);
         // } else {
             // $pagu = Pagu::make($request->all());
         // }
@@ -88,7 +88,7 @@ class PaguController extends Controller
      */
     public function update(Request $request, Pagu $pagu)
     {
-        $pagu->value = $request->value;
+        $pagu->value = strval($request->value);
         $pagu->date = $request->date;
         $pagu->update();
         session()->flash('message', trans('message.update'));
