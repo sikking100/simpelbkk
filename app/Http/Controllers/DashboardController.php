@@ -17,19 +17,35 @@ class DashboardController extends Controller
             $totalPendapatan = Income::where('user_id', auth()->user()->id)->whereYear('date', $year)->get();
             $totalRealisasi = Realization::where('user_id', auth()->user()->id)->whereYear('date', $year)->get();
             $totalGroup = Realization::where('user_id', auth()->user()->id)->whereYear('date', $year)->get();
-
+            return response()->json([
+                'totalPendapatan' => $totalPendapatan->sum('income'),
+                'totalGroup' => $totalGroup->unique('group_id')->count(),
+                // 'totalGroup' => $totalGroup->count(),
+                'totalBantuan' => $totalRealisasi->sum('use'),
+                'totalRealisasi' => $totalRealisasi->sum('amount'),
+            ]);
         } else {
-            $totalPendapatan = Income::whereYear('date', $year)->get();
-            $totalRealisasi = Realization::whereYear('date', $year)->get();
-            $totalGroup = Realization::whereYear('date', $year)->get();
+            $groups = Group::whereYear('date', $year)->get();
+            $totalRealisasi = 0;
+            $totalPendapatan = 0;
+            $totalBantuan = 0 ;
+            foreach ($groups as $key => $value) {
+                $totalRealisasi += $value->realization->sum('amount');
+                $totalPendapatan += $value->income->sum('income');
+                $totalBantuan += $value->realization->sum('use');
+            }
+            // $totalPendapatan = Income::whereYear('date', $year)->get();
+            // $totalRealisasi = Realization::whereYear('date', $year)->get();
+            // $totalGroup = Realization::whereYear('date', $year)->get();
+            return response()->json([
+                'totalPendapatan' => $totalPendapatan,
+                'totalGroup' => $groups->count(),
+                // 'totalGroup' => $totalGroup->count(),
+                'totalBantuan' => $totalBantuan,
+                'totalRealisasi' => $totalRealisasi,
+            ]);
 
         }
-        return response()->json([
-            'totalPendapatan' => $totalPendapatan->sum('income'),
-            'totalGroup' => $totalGroup->unique('group_id')->count(),
-            // 'totalGroup' => $totalGroup->count(),
-            'totalBantuan' => $totalPendapatan->sum('received'),
-            'totalRealisasi' => $totalRealisasi->sum('use'),
-        ]);
+
     }
 }

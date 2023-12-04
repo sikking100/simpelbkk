@@ -13,6 +13,7 @@ import { Banner } from "@/Inteface/Banner";
 import { Announcement } from "@/Inteface/Announcement";
 import ReactPlayer from 'react-player'
 import { Video } from "@/Inteface/Video";
+import ImageGallery, { ReactImageGalleryItem, ReactImageGalleryImageSet } from 'react-image-gallery'
 
 interface Props extends PagesProps {
     documentations: Array<Documentation>
@@ -33,6 +34,7 @@ export default function Home(props: Props) {
     const [pagu, setPagu] = useState<number>(0)
     const [realisasi, setRealisasi] = useState<number>(0)
     const [homeUsers, setHomeUsers] = useState<Array<HomeUser>>([])
+    const [progress, setProgress] = useState<string>()
     function getData() {
         axios.get(`/data/${year}`).then((e) => {
             console.log(e)
@@ -83,6 +85,7 @@ export default function Home(props: Props) {
         return
     }, [name])
 
+
     const YoutubeSlide = ({ url, isSelected }: { url: string, isSelected: boolean }) => (<ReactPlayer
         width={'100%'}
         className={'react-player w-full'}
@@ -108,6 +111,16 @@ export default function Home(props: Props) {
         return <img key={videoId} src={getVideoThumb(videoId)} />
     })
 
+
+    const images: ReactImageGalleryItem[] = props.documentations.filter((e, i) => e.progress === progress).map((e, i) => {
+
+        return {
+            original: `../storage/documentations/${e.image}`,
+            thumbnail: `../storage/documentations/${e.image}`,
+
+        }
+    });
+
     const prgrsPencairanDana = pagu === 0 ? 0 : (dana / pagu * 100);
     return (
         <Guest banner={props.banner}>
@@ -119,6 +132,7 @@ export default function Home(props: Props) {
                             dateFormat={'yyyy'}
                             value={year.toString()}
                             showYearPicker={true}
+                            selected={new Date(year.toString())}
                             onChange={(e) => {
                                 if (e !== null) {
                                     setYear(e.getFullYear())
@@ -176,9 +190,29 @@ export default function Home(props: Props) {
                     </Carousel>
                 </div>
 
+                <div className="mt-6 grid grid-cols-8">
+                    <div className="pb-6 pr-6 gap-6 col-span-1 flex flex-col">
+                        <span className="text-xl font-bold">Progress</span>
+                        <button className="btn" onClick={() => setProgress('25%')}>25%</button>
+                        <button className="btn" onClick={() => setProgress('50%')}>50%</button>
+                        <button className="btn" onClick={() => setProgress('75%')}>75%</button>
+                        <button className="btn" onClick={() => setProgress('100%')}>100%</button>
+                    </div>
+                    <div
+                        className="col-span-7">
+                        <ImageGallery
+                            items={images}
+                            autoPlay={true}
+                            infinite={true}
+                            showBullets={false}
+                            showPlayButton={false}
+                            showThumbnails={false}
+                        />
+                    </div>
+                </div>
                 <div className="mt-6 md:grid md:grid-flow-cols gap-6">
 
-                    <Carousel
+                    {/* <Carousel
                         autoPlay={true}
                         className="min-w-full mt-6 md:mt-0 md:col-span-2">
                         {
@@ -190,7 +224,9 @@ export default function Home(props: Props) {
                                 )
                             })
                         }
-                    </Carousel>
+                    </Carousel> */}
+
+
                     <div className="md:w-full box-border border-collapse border-black border p-6 md:col-span-2">
                         <b>Pengumuman</b>
                         <div className="h-64 md:h-50 overflow-scroll">
@@ -238,6 +274,7 @@ export default function Home(props: Props) {
                                 dateFormat={'yyyy'}
                                 value={yearBottom.toString()}
                                 showYearPicker={true}
+                                selected={new Date(year.toString())}
                                 onChange={(e) => {
                                     if (e !== null) {
                                         setYearBottom(e.getFullYear())

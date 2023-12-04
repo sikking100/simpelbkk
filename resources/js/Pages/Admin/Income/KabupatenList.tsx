@@ -58,6 +58,7 @@ export default function KabupatenList({ auth, errors }: Props) {
                     className="rounded mb-6"
                     value={year?.toString()}
                     showYearPicker={true}
+                    selected={new Date(year?.toString())}
                     onChange={(e) => {
                         if (e === null) return
                         setYear(e.getFullYear())
@@ -73,8 +74,10 @@ export default function KabupatenList({ auth, errors }: Props) {
                             <th>Besar Bantuan</th>
                             <th>Jenis Kegiatan</th>
                             <th>Realisasi</th>
+                            <th>Pendapatan Kelompok</th>
                             <th>Keterangan</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,6 +104,9 @@ export default function KabupatenList({ auth, errors }: Props) {
                                             {rupiah(e.realisasi)}
                                         </td>
                                         <td>
+                                            {rupiah(e.pendapatan)}
+                                        </td>
+                                        <td>
                                             {e.keterangan}
                                         </td>
                                         <td>
@@ -119,6 +125,24 @@ export default function KabupatenList({ auth, errors }: Props) {
 
                                             >
                                                 {e.status}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button
+                                                onClick={(r) => {
+                                                    const title = `Yakin ingin menghapus data`
+                                                    r.preventDefault()
+                                                    if (confirm(title)) {
+                                                        setShowAlert(true)
+                                                        Inertia.put(route('group.destroy', e.id));
+                                                        getData()
+                                                    }
+                                                }}
+                                                className={'btn bg-red-500'}
+                                                title='Hapus'
+
+                                            >
+                                                Hapus
                                             </button>
                                         </td>
 

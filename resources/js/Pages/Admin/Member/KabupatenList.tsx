@@ -30,13 +30,14 @@ export default function KabupatenList({ auth, errors }: Props) {
         <Authenticated
             auth={auth}
             errors={errors}
-            header="Rekap Kelompok"
+            header="Rekap Anggota Kelompok"
         >
             <div className=" overflow-auto">
                 <ReactDatePicker
                     className="rounded mb-6"
                     value={year?.toString()}
                     showYearPicker={true}
+                    selected={new Date(year?.toString())}
                     onChange={(e) => {
                         if (e === null) return
                         setYear(e.getFullYear())
@@ -46,6 +47,8 @@ export default function KabupatenList({ auth, errors }: Props) {
                 <table className="mt-6 table table-auto w-full">
                     <thead>
                         <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
                             <th>Kelompok</th>
@@ -60,6 +63,8 @@ export default function KabupatenList({ auth, errors }: Props) {
                             datas && datas.map((e, i) => {
                                 return (
                                     <tr key={i}  >
+                                        <td>{i + 1}</td>
+                                        <td>{new Date(`${e.tanggal}`).getFullYear().toString()}</td>
                                         <td>
                                             {e.kecamatan}
                                         </td>

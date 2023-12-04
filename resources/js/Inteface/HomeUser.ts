@@ -1,4 +1,5 @@
 export interface HomeUser {
+    tanggal: string
     kecamatan: string
     desa: string
     kelompok: string

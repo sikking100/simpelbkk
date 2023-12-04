@@ -54,6 +54,7 @@ export default function Dashboard({ auth, errors }: PagesProps) {
                         value={year.toString()}
                         dateFormat={'yyyy'}
                         showYearPicker={true}
+                        selected={new Date(year.toString())}
                         onChange={(e) => {
                             if (e == null) return
                             const year = e.getFullYear()

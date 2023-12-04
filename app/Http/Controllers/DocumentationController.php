@@ -50,6 +50,9 @@ class DocumentationController extends Controller
     {
         $documentation = Documentation::make($request->all());
         if ($request->image != null) {
+            $request->validate([
+                'image' => 'image'
+            ]);
             $this->upload->uploadImage($request, 'documentations', $documentation);
         }
         $documentation['user_id'] = auth()->user()->id;
@@ -96,6 +99,9 @@ class DocumentationController extends Controller
     public function update(Request $request, Documentation $documentation)
     {
         if ($request->image != null) {
+            $request->validate([
+                'image' => 'image'
+            ]);
             $this->upload->deleteImage('documentations', $documentation);
             $this->upload->uploadImage($request, 'documentations', $documentation);
         }

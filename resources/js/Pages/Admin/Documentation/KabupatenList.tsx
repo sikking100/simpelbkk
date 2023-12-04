@@ -36,6 +36,7 @@ export default function KabupatenList({ auth, errors }: Props) {
             <div className="overflow-auto">
                 <ReactDatePicker
                     className="rounded mb-6"
+                    selected={new Date(year?.toString())}
                     value={year?.toString()}
                     showYearPicker={true}
                     onChange={(e) => {

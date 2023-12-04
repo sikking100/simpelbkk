@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Income;
 use App\Models\Member;
 use App\Support\MyUploadFile;
 use Illuminate\Http\Request;
@@ -124,17 +123,21 @@ class MemberController extends Controller
 
     public function data($year)
     {
-        $groups = Member::whereYear('created_at', $year)->get();
+        $groups = Group::whereYear('date', $year)->get();
         $memberRecap = collect();
         foreach ($groups as $key => $value) {
-            $user['kecamatan'] = $value->group->user->district->name;
-            $user['desa'] = $value->group->user->village->name;
-            $user['kelompok'] = $value->group->name;
-            $user['name'] = $value->name;
-            $user['type'] = $value->type;
-            $user['nik'] = $value->nik;
-            $user['pendidikan'] = $value->pendidikan;
-            $memberRecap->add($user);
+            $member = $value->member;
+            foreach ($member as $k => $v) {
+                $user['tanggal'] = $value->date;
+                $user['name'] = $v->name;
+                $user['type'] = $v->type;
+                $user['nik'] = $v->nik;
+                $user['pendidikan'] = $v->pendidikan;
+                $user['kecamatan'] = $value->user->district->name;
+                $user['desa'] = $value->user->village->name;
+                $user['kelompok'] = $value->name;
+                $memberRecap->add($user);
+            }
         }
         return response()->json($memberRecap);
     }

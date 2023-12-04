@@ -5,6 +5,7 @@ export interface ReportRecap {
     bantuan: number
     jenis: string
     realisasi: number
+    pendapatan: number
     keterangan: string
     status: string
     id: number

@@ -124,6 +124,7 @@ export default function Form({ groups, documentation }: Props) {
                 </div>
                 <div className="w-full px-3">
                     <img src={preview} className="h-2/3 mb-6" />
+                    <span className="text-red-500 font-bold">Foto harus berbentuk LANDSCAPE</span>
                     <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading tight"
                         type={'file'}

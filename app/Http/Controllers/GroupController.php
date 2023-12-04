@@ -218,8 +218,10 @@ class GroupController extends Controller
     public function data($year)
     {
         $groups = Group::whereYear('date', $year)->get();
+
         $homeUsers = collect();
         foreach ($groups as $key => $value) {
+            $user['tanggal'] = strval($value->date);
             $user['kecamatan'] = $value->user->district->name;
             $user['desa'] = $value->user->village->name;
             $user['kelompok'] = $value->name;

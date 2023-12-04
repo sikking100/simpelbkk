@@ -1,4 +1,5 @@
 export interface MemberRecap {
+    tanggal: string
     kecamatan: string
     desa: string
     kelompok: string

@@ -33,9 +33,17 @@ class HomeController extends Controller
     {
         $pagu = Pagu::whereYear('date', $year)->get()->sum('value');
         $totalDana = Income::whereYear('date', $year)->get()->sum('received');
-        $realisasi = Realization::whereYear('date', $year)->get()->sum('amount');
-        $totalGroup = Group::whereYear('created_at', $year)->get()->count();
-        $pendapatan = Income::whereYear('date', $year)->get()->sum('income');
+        // $realisasi = Realization::whereYear('date', $year)->get()->sum('amount');
+        $groups = Group::whereYear('date', $year)->get();
+        $realisasi = 0;
+        $pendapatan = 0;
+        foreach ($groups as $key => $value) {
+            $realisasi += $value->realization->sum('amount');
+            $pendapatan += $value->income->sum('income');
+        }
+        $totalGroup = Group::whereYear('date', $year)->get()->count();
+        // $totalGroup = Realization::whereYear('date', $year)->get()->sum('use');
+        // $pendapatan = Income::whereYear('date', $year)->get()->sum('income');
         return response()->json([
             'pagu' => $pagu,
             'dana' => $totalDana,

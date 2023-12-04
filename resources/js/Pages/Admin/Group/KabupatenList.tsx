@@ -39,6 +39,9 @@ export default function KabupatenList({ auth, errors }: Props) {
                     className="rounded mb-6"
                     value={year?.toString()}
                     showYearPicker={true}
+                    adjustDateOnChange={true}
+                    selected={new Date(`${year}`)}
+
                     onChange={(e) => {
                         if (e === null) return
                         setYear(e.getFullYear())
@@ -48,6 +51,8 @@ export default function KabupatenList({ auth, errors }: Props) {
                 <table className="mt-6 table table-auto w-full">
                     <thead>
                         <tr>
+                            <th>No</th>
+                            <th>Tahun</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
                             <th>Kelompok</th>
@@ -61,6 +66,12 @@ export default function KabupatenList({ auth, errors }: Props) {
                             datas && datas.map((e, i) => {
                                 return (
                                     <tr key={i}  >
+                                        <td>
+                                            {i + 1}
+                                        </td>
+                                        <td>
+                                            {new Date(`${e.tanggal}`).getFullYear()}
+                                        </td>
                                         <td>
                                             {e.kecamatan}
                                         </td>

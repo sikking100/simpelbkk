@@ -114,9 +114,17 @@ class IncomeController extends Controller
             $data['kecamatan'] = $value->user->district->name;
             $data['desa'] = $value->user->village->name;
             $data['kelompok'] = $value->name;
-            $data['bantuan'] = $value->income->sum('received');
+            $data['bantuan'] = $value->realization->sum('use');
             $data['jenis'] = $value->typeOfAction->name;
-            $data['realisasi'] = $value->realization->sum('use');
+            $data['realisasi'] = $value->realization->sum('amount');
+            // $p = 0;
+            // foreach ($value->income->get() as $k => $v) {
+            //     if ($v->date == '2023-07-31') {
+            //         $p += $v->income;
+            //     }
+            // }
+            $data['pendapatan'] = $value->income->sum('income');
+            // $data['pendapatan'] = $p;
             $data['keterangan'] = $value->description;
             $data['status'] = $value->status;
             $data['id'] = $value->id;

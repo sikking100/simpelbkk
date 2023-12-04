@@ -53,6 +53,8 @@ export default function Form({ announcement }: Props) {
                     </label>
                     <ReactDatePicker
                         className="form-input"
+                        selected={new Date(data.begin)}
+                        startDate={new Date('2022')}
                         value={dateToShow(Date.parse(data.begin))}
                         onChange={(e) => {
                             if (e !== null) {
@@ -68,6 +70,8 @@ export default function Form({ announcement }: Props) {
                     <ReactDatePicker
                         className="form-input"
                         value={dateToShow(Date.parse(data.end))}
+                        selected={new Date(data.end)}
+
                         onChange={(e) => {
                             if (e !== null) {
                                 setData('end', moment(e).format('YYYY-MM-DD HH:mm:ss'))
