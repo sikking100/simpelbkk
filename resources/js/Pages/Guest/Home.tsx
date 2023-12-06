@@ -193,10 +193,10 @@ export default function Home(props: Props) {
                 <div className="mt-6 grid grid-cols-8">
                     <div className="pb-6 pr-6 gap-6 col-span-1 flex flex-col">
                         <span className="text-xl font-bold">Progress</span>
-                        <button className="btn" onClick={() => setProgress('25%')}>25%</button>
-                        <button className="btn" onClick={() => setProgress('50%')}>50%</button>
-                        <button className="btn" onClick={() => setProgress('75%')}>75%</button>
-                        <button className="btn" onClick={() => setProgress('100%')}>100%</button>
+                        <button className={`btn ${progress === '25%' ? 'bg-nav-hover' : ''}`} onClick={() => setProgress('25%')}>25%</button>
+                        <button className={`btn ${progress === '50%' ? 'bg-nav-hover' : ''}`} onClick={() => setProgress('50%')}>50%</button>
+                        <button className={`btn ${progress === '75%' ? 'bg-nav-hover' : ''}`} onClick={() => setProgress('75%')}>75%</button>
+                        <button className={`btn ${progress === '100%' ? 'bg-nav-hover' : ''}`} onClick={() => setProgress('100%')}>100%</button>
                     </div>
                     <div
                         className="col-span-7">

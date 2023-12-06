@@ -86,7 +86,7 @@ export default function Index({ auth, errors, groups, flash }: Props) {
                     </div>
                 ) : (
                     <div className='w-full overflow-auto'>
-                        <p>Total {Intl.NumberFormat('id').format(realizations.map(e => e.amount).reduce((e, v) => e + v))}</p>
+                        <p>Total {Intl.NumberFormat('id').format(realizations.map(e => parseInt(`${e.amount}`)).reduce((e, v) => e + v))}</p>
                         <table className='mt-6 table table-auto w-full border-collapse border border-slate-500'>
                             <thead>
                                 <tr>
